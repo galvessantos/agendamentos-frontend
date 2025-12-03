@@ -1,0 +1,55 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+/* ---------- Angular Material theme (M3) ---------- */
+html {
+  @include mat.theme((
+    color: (
+      // Usamos uma paleta base próxima e sobrescrevemos as cores principais via CSS vars abaixo.
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+/* ---------- Paleta de cores da marca ---------- */
+:root {
+  --brand-900: #021B27;
+  --brand-700: #0A4F5A;
+  --brand-500: #117175;
+  --brand-300: #2CA29B;
+  --brand-100: #8DD6D1;
+  --brand-surface: #ffffff;
+
+  /* Ajuste das principais tokens do Material para casar com a paleta */
+  --mat-sys-primary: var(--brand-500);
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: var(--brand-700);
+  --mat-sys-on-primary-container: #ffffff;
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--brand-900);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+

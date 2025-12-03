@@ -1,0 +1,225 @@
+<header>
+  <mat-toolbar class="header-toolbar">
+    <div class="logo">AgendaAí</div>
+    <nav class="nav-links">
+      <a href="#produto">Produto</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#precos">Preços</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" class="btn-login">Login</a>
+      <button mat-button class="btn-signup" color="primary">Cadastre-se</button>
+    </div>
+  </mat-toolbar>
+</header>
+
+<section class="hero" id="produto">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>👥</span>
+      Usado por +800 negócios
+    </div>
+
+    <h1>
+      Organize fácil. <br />
+      Cresça <span class="highlight">rápido</span>.
+    </h1>
+
+    <p class="hero-description">
+      Sistema de agendamento completo para barbearias, salões e clínicas. Configure em minutos e comece a receber hoje.
+    </p>
+
+    <div class="hero-actions">
+      <button mat-raised-button color="primary">
+        Começar agora
+      </button>
+      <a href="#" class="btn-secondary">Ver como funciona</a>
+    </div>
+
+    <div class="hero-features">
+      <div class="hero-feature">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Grátis por 14 dias
+      </div>
+      <div class="hero-feature">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Sem cartão de crédito
+      </div>
+    </div>
+  </div>
+
+  <div class="visual-wrapper">
+    <div class="screens-container">
+      <div class="screen-desktop">
+        <div class="screen-header">
+          <div class="screen-dot"></div>
+          <div class="screen-dot"></div>
+          <div class="screen-dot"></div>
+        </div>
+        <div class="screen-content">
+          <div class="dashboard-stats">
+            @for (stat of stats$ | async; track stat.label) {
+              <app-stat-card [label]="stat.label" [value]="stat.value" />
+            }
+          </div>
+          <div class="chart-area">
+            <div class="chart-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-mobile">
+        <div class="mobile-notch"></div>
+        <div class="mobile-screen">
+          <div class="mobile-header">
+            <h3>Seus agendamentos</h3>
+          </div>
+          <div class="appointment-card">
+            <div class="appointment-time">09:00</div>
+            <div class="appointment-name">Carlos Silva - Corte</div>
+          </div>
+          <div class="appointment-card">
+            <div class="appointment-time">10:30</div>
+            <div class="appointment-name">Ana Costa - Barba</div>
+          </div>
+          <div class="appointment-card">
+            <div class="appointment-time">14:00</div>
+            <div class="appointment-name">Pedro Santos - Corte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section">
+  <div class="info-content">
+    <h2>Feito para você economizar tempo</h2>
+    <p>
+      Pare de perder horas gerenciando agenda no papel ou pelo WhatsApp. Deixe seus clientes agendarem sozinhos, 24 horas por dia.
+    </p>
+
+    <ul class="info-list">
+      <li>Configure em menos de 10 minutos</li>
+      <li>Seus clientes agendam pelo celular</li>
+      <li>Lembretes automáticos reduzem faltas</li>
+      <li>Relatórios completos do seu negócio</li>
+    </ul>
+
+    <button mat-raised-button color="primary">
+      Testar gratuitamente
+    </button>
+  </div>
+
+  <div class="info-visual">
+    ⚡
+  </div>
+</section>
+
+<section class="features-section" id="recursos">
+  <div class="features-container">
+    <div class="features-header">
+      <h2>Tudo que você precisa</h2>
+      <p>Recursos pensados para facilitar o dia a dia do seu negócio</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <div class="feature-icon">📱</div>
+        <h3>Agendamento online</h3>
+        <p>
+          Página personalizada onde seus clientes marcam horários a qualquer momento, sem precisar ligar ou mandar mensagem.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon">🔔</div>
+        <h3>Lembretes automáticos</h3>
+        <p>
+          Envio automático de notificações por SMS e email para seus clientes não esquecerem dos compromissos.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon">👥</div>
+        <h3>Gestão de equipe</h3>
+        <p>
+          Controle a agenda de vários profissionais ao mesmo tempo, com horários e serviços personalizados para cada um.
+        </p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon">📊</div>
+        <h3>Relatórios detalhados</h3>
+        <p>
+          Acompanhe o desempenho do seu negócio com gráficos e estatísticas em tempo real direto do celular.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Pronto para começar?</h2>
+  <p>Teste grátis por 14 dias. Não precisa cadastrar cartão.</p>
+  <button mat-raised-button color="primary">
+    Criar minha conta grátis
+  </button>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <h3>AgendaAí</h3>
+      <p>
+        Sistema de agendamento online para comércios locais. Simplifique sua rotina e cresça seu negócio.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Produto</h4>
+      <ul>
+        <li><a href="#">Recursos</a></li>
+        <li><a href="#">Preços</a></li>
+        <li><a href="#">Casos de uso</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Ajuda</h4>
+      <ul>
+        <li><a href="#">Central de ajuda</a></li>
+        <li><a href="#">Documentação</a></li>
+        <li><a href="#">Status</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2024 AgendaAí. Todos os direitos reservados.
+  </div>
+</footer>
+
+
