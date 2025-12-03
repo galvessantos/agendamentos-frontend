@@ -19,6 +19,13 @@ export class LandingPageComponent {
   private readonly landingService = inject(LandingService);
 
   stats$: Observable<Stat[]> = this.landingService.getStats();
+
+  /**
+   * Função para voltar ao topo da página ao clicar no logo "Agendou"
+   */
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 
