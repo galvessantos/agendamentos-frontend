@@ -34,7 +34,7 @@ header {
   margin: 0 auto;
   padding: 0 2.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background: transparent;
   color: #f9fafb;
@@ -50,29 +50,165 @@ header {
   display: flex;
   gap: 2rem;
   align-items: center;
+  margin-left: auto;
 }
 
 .nav-links a {
   color: #d1e5ea;
   text-decoration: none;
   font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  transition: color 220ms ease-out;
+}
+
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8dd6d1, #2ca29b);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+  pointer-events: none;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+.nav-links a:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-links a:focus-visible {
+  outline: none;
+  color: #ffffff;
+}
+
+.nav-links a:focus-visible::before {
+  opacity: 1;
 }
 
 .header-actions {
   display: flex;
   gap: 1.2rem;
   align-items: center;
+  margin-left: 2rem;
+  position: relative;
+}
+
+.header-actions::before {
+  content: "";
+  position: absolute;
+  left: -1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(141, 214, 209, 0) 0%,
+    rgba(141, 214, 209, 0.4) 40%,
+    rgba(44, 162, 155, 0.7) 100%
+  );
+  opacity: 0.9;
 }
 
 .btn-login {
   color: #d1e5ea;
   text-decoration: none;
   font-size: 0.9rem;
+  padding: 0.4rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  transition: color 220ms ease-out;
+}
+
+.btn-login::before {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 0;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8dd6d1, #2ca29b);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity 240ms ease-out, transform 240ms ease-out;
+  pointer-events: none;
+}
+
+.btn-login:hover {
+  color: #ffffff;
+}
+
+.btn-login:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.btn-login:focus-visible {
+  outline: none;
+  color: #ffffff;
+}
+
+.btn-login:focus-visible::before {
+  opacity: 1;
 }
 
 .btn-signup {
   border-radius: 999px;
   padding-inline: 1.6rem;
+  position: relative;
+  overflow: hidden;
+  background: #8dd6d1; /* mesma cor do highlight "rápido" */
+  color: #021b27;
+  font-weight: 500;
+  transition: background-color 420ms ease-out, color 420ms ease-out;
+}
+
+.btn-signup::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(2, 27, 39, 0.12);
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 420ms ease-out;
+  pointer-events: none;
+}
+
+.btn-signup:hover::before {
+  opacity: 1;
+}
+
+.btn-signup:hover {
+  background: #2ca29b; /* tom mais escuro da paleta */
+  color: #ffffff;
+}
+
+.btn-signup:focus-visible {
+  outline: none;
+  background: #2ca29b;
+  color: #ffffff;
+}
+
+.btn-signup:focus-visible::before {
+  opacity: 1;
 }
 
 /* Hero */
@@ -131,10 +267,90 @@ header {
   margin-bottom: 2rem;
 }
 
+/* Botões principais da hero e CTA */
+.hero-actions button[mat-raised-button],
+.cta-section button[mat-raised-button] {
+  padding: 0; /* deixamos o container sob controle do Material */
+  min-height: auto;
+  font-size: 1rem;
+}
+
+/* Padding interno real dos rótulos dos botões (evita texto colado) */
+.hero-actions button[mat-raised-button] .mdc-button__label {
+  padding: 2rem 5rem; /* maior para o botão "Começar agora" */
+  display: inline-block;
+}
+
+.cta-section button[mat-raised-button] .mdc-button__label {
+  padding: 0.9rem 2.4rem; /* um pouco menor para "Testar gratuitamente" */
+  display: inline-block;
+}
+
+/* Estilo específico dos botões primários "Começar agora" e "Testar gratuitamente" */
+.hero-actions button[mat-raised-button],
+.cta-section button[mat-raised-button] {
+  background-color: #b6d8d6; /* cor clara da paleta */
+  color: #000000; /* texto escuro para contraste em estado base */
+  transition: background-color 260ms ease-out, color 260ms ease-out;
+}
+
+.hero-actions button[mat-raised-button]:hover,
+.cta-section button[mat-raised-button]:hover {
+  background-color: #326b6d; /* mais escuro no hover */
+  color: #ffffff;
+}
+
+.hero-actions button[mat-raised-button]:focus-visible,
+.cta-section button[mat-raised-button]:focus-visible {
+  outline: none;
+  background-color: #326b6d;
+  color: #ffffff;
+}
+
 .btn-secondary {
   color: #8dd6d1;
   text-decoration: none;
   font-size: 0.95rem;
+  position: relative;
+  padding: 0.4rem 0;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* Linha animada abaixo do "Ver como funciona", reaproveitando a lógica do header */
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 0;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8dd6d1, #2ca29b);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity 220ms ease-out, transform 220ms ease-out;
+  pointer-events: none;
+}
+
+.btn-secondary:hover {
+  color: #ffffff;
+}
+
+.btn-secondary:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.btn-secondary:focus-visible {
+  outline: none;
+  color: #ffffff;
+}
+
+.btn-secondary:focus-visible::before {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .hero-features {
