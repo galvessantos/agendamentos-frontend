@@ -1,6 +1,6 @@
 <header>
   <mat-toolbar class="header-toolbar">
-    <div class="logo">AgendaAí</div>
+    <div class="logo" (click)="scrollToTop()">Agendou</div>
     <nav class="nav-links">
       <a href="#produto">Produto</a>
       <a href="#recursos">Recursos</a>
@@ -31,7 +31,7 @@
     </p>
 
     <div class="hero-actions">
-      <button mat-raised-button color="primary">
+      <button mat-raised-button color="primary" class="btn-custom-primary">
         Começar agora
       </button>
       <a href="#" class="btn-secondary">Ver como funciona</a>
@@ -176,14 +176,14 @@
   <h2>Pronto para começar?</h2>
   <p>Teste grátis por 14 dias. Não precisa cadastrar cartão.</p>
   <button mat-raised-button color="primary">
-    Criar minha conta grátis
+    Criar conta grátis
   </button>
 </section>
 
 <footer>
   <div class="footer-content">
     <div class="footer-brand">
-      <h3>AgendaAí</h3>
+      <h3>Agendou</h3>
       <p>
         Sistema de agendamento online para comércios locais. Simplifique sua rotina e cresça seu negócio.
       </p>
@@ -218,7 +218,7 @@
   </div>
 
   <div class="footer-bottom">
-    © 2024 AgendaAí. Todos os direitos reservados.
+    © 2024 Agendou. Todos os direitos reservados.
   </div>
 </footer>
 
