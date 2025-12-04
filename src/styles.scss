@@ -1,16 +1,17 @@
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
-/* ---------- Angular Material theme (M3) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
+  scroll-behavior: smooth;
+
   @include mat.theme((
     color: (
-      // Usamos uma paleta base próxima e sobrescrevemos as cores principais via CSS vars abaixo.
       primary: mat.$azure-palette,
       tertiary: mat.$blue-palette,
     ),
@@ -19,37 +20,53 @@ html {
   ));
 }
 
-/* ---------- Paleta de cores da marca ---------- */
 :root {
-  --brand-900: #021B27;
-  --brand-700: #0A4F5A;
-  --brand-500: #117175;
-  --brand-300: #2CA29B;
-  --brand-100: #8DD6D1;
-  --brand-surface: #ffffff;
-
-  /* Ajuste das principais tokens do Material para casar com a paleta */
-  --mat-sys-primary: var(--brand-500);
+  /* Alinha o tema do Angular Material com a paleta roxa (#A855F7) */
+  --mat-sys-primary: #A855F7;
   --mat-sys-on-primary: #ffffff;
-  --mat-sys-primary-container: var(--brand-700);
+  --mat-sys-primary-container: #6B21A8;
   --mat-sys-on-primary-container: #ffffff;
 }
 
+* {
+  @apply antialiased;
+}
+
 body {
-  color-scheme: light;
-  background-color: var(--brand-900);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  @apply bg-white text-gray-900;
+  font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
+  min-height: 100vh;
 }
 
-html,
-body {
-  height: 100%;
-}
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
 
-body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
 
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg bg-secondary-500 text-white font-medium hover:bg-secondary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent;
+  }
+
+  .accent-underline {
+    @apply relative inline-block;
+  }
+
+  .accent-underline::after {
+    @apply absolute bottom-0 left-0 w-full h-1.5 bg-primary-500 -z-10;
+    content: '';
+  }
+}
 

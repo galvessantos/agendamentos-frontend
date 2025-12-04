@@ -1,3 +1,56 @@
-@import '../../app.scss';
+// Estilos específicos da landing.
 
+/* Carrossel de funcionalidades (similar ao carrossel de empresas da AbacatePay) */
+.feature-carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: white;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+  padding: 1.5rem 0;
+  margin-top: auto;
+}
+
+.feature-marquee {
+  display: flex;
+  animation: marquee 40s linear infinite;
+  width: max-content;
+}
+
+.feature-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 2rem;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-marquee-group {
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  .feature-marquee {
+    animation-duration: 30s;
+  }
+}
+
+/* Garantir que o layout da primeira tela funcione corretamente */
+.min-h-screen {
+  .flex-grow {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 
