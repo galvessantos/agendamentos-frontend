@@ -1,225 +1,896 @@
-<header>
-  <mat-toolbar class="header-toolbar">
-    <div class="logo" (click)="scrollToTop()">Agendou</div>
-    <nav class="nav-links">
-      <a href="#produto">Produto</a>
-      <a href="#recursos">Recursos</a>
-      <a href="#precos">Preços</a>
-      <a href="#contato">Contato</a>
+<div class="min-h-screen bg-white">
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-50 bg-transparent backdrop-blur-md border-b border-white/10">
+    <nav class="section-container flex items-center h-20">
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </div>
+        <span
+          class="text-xl font-bold transition-colors"
+          [ngClass]="isOnDarkBackground ? 'text-white' : 'text-gray-900'"
+        >
+          AgendaAí
+        </span>
+      </div>
+
+      <!-- Right side: Menu + divider + Auth buttons -->
+      <div class="hidden md:flex items-center gap-6 ml-auto">
+        <!-- Menu Items -->
+        <div class="flex items-center gap-4">
+          <a
+            href="#features"
+            class="px-3 py-2 rounded-lg text-base font-medium transition-colors"
+            [ngClass]="
+              isOnDarkBackground
+                ? 'text-white/80 hover:text-white hover:bg-white/10'
+                : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50/60'
+            "
+          >
+            Funcionalidades
+          </a>
+          <a
+            href="#solutions"
+            class="px-3 py-2 rounded-lg text-base font-medium transition-colors"
+            [ngClass]="
+              isOnDarkBackground
+                ? 'text-white/80 hover:text-white hover:bg-white/10'
+                : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50/60'
+            "
+          >
+            Soluções
+          </a>
+          <a
+            href="#"
+            class="px-3 py-2 rounded-lg text-base font-medium transition-colors"
+            [ngClass]="
+              isOnDarkBackground
+                ? 'text-white/80 hover:text-white hover:bg-white/10'
+                : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50/60'
+            "
+          >
+            Planos
+          </a>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-6 w-px bg-gray-200"></div>
+
+        <!-- Login and CTA Buttons -->
+        <div class="flex items-center gap-3">
+          <button
+            class="px-4 py-2 text-base font-medium rounded-lg border transition-colors"
+            [ngClass]="
+              isOnDarkBackground
+                ? 'text-white/80 border-white/20 hover:bg-white/10 hover:text-white'
+                : 'text-primary-600 border-primary-100 hover:bg-primary-50'
+            "
+          >
+            Login
+          </button>
+          <button class="btn-primary text-base">Começar agora</button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </nav>
-    <div class="header-actions">
-      <a href="#" class="btn-login">Login</a>
-      <button mat-button class="btn-signup" color="primary">Cadastre-se</button>
-    </div>
-  </mat-toolbar>
 </header>
 
-<section class="hero" id="produto">
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span>👥</span>
-      Usado por +800 negócios
+  <!-- Hero Section -->
+  <div
+    class="relative overflow-hidden bg-gradient-to-br from-white via-primary-50 to-white min-h-screen flex flex-col"
+  >
+    <!-- Decorative elements -->
+    <div class="absolute top-20 right-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
+
+    <div class="flex-grow flex flex-col justify-center pt-20 pb-8">
+      <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
+        <!-- Left Content -->
+        <div class="space-y-6" appScrollReveal>
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full">
+          <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+          <span class="text-sm font-medium text-primary-600">Solução completa de agendamento</span>
     </div>
 
-    <h1>
-      Organize fácil. <br />
-      Cresça <span class="highlight">rápido</span>.
+        <div class="space-y-4">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+            Agendamentos que
+            <br />
+            <span class="text-primary-500">elevam</span> a experiência do seu cliente.
     </h1>
+          <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
+            Profissionalismo, organização e eficiência em poucos cliques, tudo desenhado para elevar o padrão do seu atendimento.
+          </p>
+        </div>
 
-    <p class="hero-description">
-      Sistema de agendamento completo para barbearias, salões e clínicas. Configure em minutos e comece a receber hoje.
-    </p>
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <button class="btn-primary">Integre ao seu negócio</button>
+          <button class="btn-outline">Por que usar?</button>
+        </div>
 
-    <div class="hero-actions">
-      <button mat-raised-button color="primary" class="btn-custom-primary">
-        Começar agora
+        <!-- Social Proof -->
+        <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
+          <div class="flex -space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600"></div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600"></div>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-pink-600"></div>
+          </div>
+          <p class="text-sm text-gray-600">
+            <span class="font-bold text-gray-900">+5,000</span> negócios já agendando
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Visual -->
+      <div class="relative hidden md:block" appScrollReveal>
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl blur-2xl opacity-20"></div>
+          <div class="relative bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-gray-200">
+              <button class="flex-1 px-6 py-4 text-sm font-medium text-primary-600 bg-primary-50 border-b-2 border-primary-500">
+                Agendamentos
+              </button>
+              <button class="flex-1 px-6 py-4 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent">
+                Clientes
       </button>
-      <a href="#" class="btn-secondary">Ver como funciona</a>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="p-6 space-y-6">
+              <!-- Stats Row -->
+              <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-gray-900">652</div>
+                  <div class="text-xs text-gray-600 mt-1">Este mês</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-primary-600">+24%</div>
+                  <div class="text-xs text-gray-600 mt-1">vs. mês anterior</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-gray-900">95%</div>
+                  <div class="text-xs text-gray-600 mt-1">Taxa de conclusão</div>
+                </div>
+              </div>
+
+              <!-- Chart -->
+              <div class="h-24 bg-gradient-to-t from-primary-100 to-primary-50 rounded-lg flex items-end gap-1 p-3">
+                <div class="flex-1 bg-primary-400 rounded-t h-12"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-16"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-10"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-20"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-14"></div>
+              </div>
+
+              <!-- Recent Booking -->
+              <div class="border-t border-gray-200 pt-4 space-y-3">
+                <p class="text-xs font-medium text-gray-500 uppercase">Próximos agendamentos</p>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3 text-sm">
+                    <div class="w-8 h-8 rounded-full bg-primary-100"></div>
+                    <div>
+                      <p class="font-medium text-gray-900">Corte + Barba</p>
+                      <p class="text-xs text-gray-600">João Silva - 14:00</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm">
+                    <div class="w-8 h-8 rounded-full bg-primary-100"></div>
+                    <div>
+                      <p class="font-medium text-gray-900">Manicure</p>
+                      <p class="text-xs text-gray-600">Maria Santos - 15:30</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="hero-features">
-      <div class="hero-feature">
-        <svg fill="currentColor" viewBox="0 0 20 20">
+    <!-- Feature Carousel pinned to bottom of first screen -->
+    <div class="w-full">
+      <div class="feature-carousel-container">
+          <div class="feature-marquee">
+            <!-- Grupo 1 -->
+            <div class="feature-marquee-group">
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Lembrete de horários icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Lembrete de horários</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Gestão financeira icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-2.21 0-4 1.343-4 3 0 1.657 1.79 3 4 3s4 1.343 4 3-1.79 3-4 3m0-12c2.21 0 4 1.343 4 3M12 4v2m0 14v-2"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Gestão financeira</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Pagamento online icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7h18M3 10h18M7 15h1m4 0h1m4 0h1M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Pagamento online</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Relatórios icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 17v-6m4 6V7m4 10V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Relatórios em tempo real</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Gestão de equipe icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
-            fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clip-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-1a4 4 0 00-4-4h-1M7 20H2v-1a4 4 0 014-4h1m10-5a3 3 0 11-6 0 3 3 0 016 0zM9 7a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
-        Grátis por 14 dias
+                </span>
+                <span class="font-medium whitespace-nowrap">Gestão de equipe</span>
       </div>
-      <div class="hero-feature">
-        <svg fill="currentColor" viewBox="0 0 20 20">
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Site do estabelecimento icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
-            fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clip-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 4h18M4 8h16v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8z"
           />
         </svg>
-        Sem cartão de crédito
+                </span>
+                <span class="font-medium whitespace-nowrap">Site do estabelecimento</span>
       </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <!-- Pesquisa de satisfação icon -->
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.828 14.828a4 4 0 01-5.656 0M9 9h.01M15 9h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Pesquisa de satisfação</span>
     </div>
   </div>
 
-  <div class="visual-wrapper">
-    <div class="screens-container">
-      <div class="screen-desktop">
-        <div class="screen-header">
-          <div class="screen-dot"></div>
-          <div class="screen-dot"></div>
-          <div class="screen-dot"></div>
+            <!-- Grupo 2 (duplicado para loop infinito) -->
+            <div class="feature-marquee-group">
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Lembrete de horários</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-2.21 0-4 1.343-4 3 0 1.657 1.79 3 4 3s4 1.343 4 3-1.79 3-4 3m0-12c2.21 0 4 1.343 4 3M12 4v2m0 14v-2"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Gestão financeira</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7h18M3 10h18M7 15h1m4 0h1m4 0h1M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Pagamento online</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 17v-6m4 6V7m4 10V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Relatórios em tempo real</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-1a4 4 0 00-4-4h-1M7 20H2v-1a4 4 0 014-4h1m10-5a3 3 0 11-6 0 3 3 0 016 0zM9 7a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Gestão de equipe</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 4h18M4 8h16v10a2 2 0 01-2 2H6a2 2 0 01-2-2V8z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Site do estabelecimento</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="inline-flex h-6 w-6 items-center justify-center text-primary-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.828 14.828a4 4 0 01-5.656 0M9 9h.01M15 9h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </span>
+                <span class="font-medium whitespace-nowrap">Pesquisa de satisfação</span>
         </div>
-        <div class="screen-content">
-          <div class="dashboard-stats">
-            @for (stat of stats$ | async; track stat.label) {
-              <app-stat-card [label]="stat.label" [value]="stat.value" />
-            }
           </div>
-          <div class="chart-area">
-            <div class="chart-line"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="screen-mobile">
-        <div class="mobile-notch"></div>
-        <div class="mobile-screen">
-          <div class="mobile-header">
-            <h3>Seus agendamentos</h3>
-          </div>
-          <div class="appointment-card">
-            <div class="appointment-time">09:00</div>
-            <div class="appointment-name">Carlos Silva - Corte</div>
-          </div>
-          <div class="appointment-card">
-            <div class="appointment-time">10:30</div>
-            <div class="appointment-name">Ana Costa - Barba</div>
-          </div>
-          <div class="appointment-card">
-            <div class="appointment-time">14:00</div>
-            <div class="appointment-name">Pedro Santos - Corte</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="info-section">
-  <div class="info-content">
-    <h2>Feito para você economizar tempo</h2>
-    <p>
-      Pare de perder horas gerenciando agenda no papel ou pelo WhatsApp. Deixe seus clientes agendarem sozinhos, 24 horas por dia.
-    </p>
+  <!-- Features Section -->
+  <section id="features" class="py-20 md:py-32 bg-white" appScrollReveal>
+    <div class="section-container">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Recursos completos de
+          <br />
+          <span class="relative inline-block">
+            agendamento.
+            <span class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10"></span>
+          </span>
+        </h2>
+        <p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
+          Tudo que você precisa para gerenciar agendamentos de forma fácil e eficiente
+        </p>
+      </div>
 
-    <ul class="info-list">
-      <li>Configure em menos de 10 minutos</li>
-      <li>Seus clientes agendam pelo celular</li>
-      <li>Lembretes automáticos reduzem faltas</li>
-      <li>Relatórios completos do seu negócio</li>
-    </ul>
+      <!-- Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Calendário Online</h3>
+          <p class="text-sm text-gray-600">
+            Seu calendário disponível 24/7 para que clientes agendem quando quiser, sem intermediadores.
+          </p>
+        </div>
 
-    <button mat-raised-button color="primary">
-      Testar gratuitamente
-    </button>
-  </div>
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Notificações</h3>
+          <p class="text-sm text-gray-600">
+            Automatize confirmações e lembretes para reduzir faltas e melhorar a experiência.
+          </p>
+          </div>
 
-  <div class="info-visual">
-    ⚡
-  </div>
-</section>
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Perfis de Profissionais</h3>
+          <p class="text-sm text-gray-600">
+            Organize múltiplos profissionais ou locais e permita agendamentos com quem o cliente preferir.
+          </p>
+        </div>
 
-<section class="features-section" id="recursos">
-  <div class="features-container">
-    <div class="features-header">
-      <h2>Tudo que você precisa</h2>
-      <p>Recursos pensados para facilitar o dia a dia do seu negócio</p>
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13.828 10.172a4 4 0 0 0-5.656 0l-4.242 4.242a4 4 0 1 0 5.656 5.656l1.102-1.101m-.758-4.899a4 4 0 0 0 5.656 0l4.242-4.242a4 4 0 0 0-5.656-5.656l-1.1 1.1"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Link compartilhável</h3>
+          <p class="text-sm text-gray-600">
+            Compartilhe seu calendário nas redes sociais, WhatsApp, email e integre em seu site.
+          </p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="features-grid">
-      <div class="feature-box">
-        <div class="feature-icon">📱</div>
-        <h3>Agendamento online</h3>
-        <p>
-          Página personalizada onde seus clientes marcam horários a qualquer momento, sem precisar ligar ou mandar mensagem.
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-20 md:py-32 bg-gray-50" appScrollReveal>
+    <div class="section-container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+        <div class="space-y-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+            Uma plataforma
+            <span class="relative inline-block">
+              completa
+              <span class="absolute bottom-1 left-0 w-full h-3 bg-primary-300 -z-10"></span>
+            </span>
+            <br />
+            para o seu negócio.
+          </h2>
+          <p class="text-lg text-gray-600">
+            Gerencia agendamentos, clientes e operações em um único lugar. AgendaAí oferece tudo que você precisa para
+            crescer, com ferramentas intuitivas e suporte dedicado para o seu sucesso.
+          </p>
+          <button class="btn-primary">Conhecer mais</button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Solution Cards -->
+          <div class="space-y-6">
+            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
+              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900">Cobranças Automáticas</h3>
+              <p class="text-sm text-gray-600 mt-2">
+                Receba pagamentos automaticamente pelos agendamentos. Sem burocracia, sem demora, direto no seu bolso.
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
+              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900">Relatórios e Análises</h3>
+              <p class="text-sm text-gray-600 mt-2">
+                Acompanhe métricas importantes: agendamentos, cancelamentos, taxa de ocupação e crescimento do seu
+                negócio.
+              </p>
+            </div>
+  </div>
+
+          <div class="space-y-6">
+            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
+              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900">Segurança e Privacidade</h3>
+              <p class="text-sm text-gray-600 mt-2">
+                Seus dados e os dos seus clientes são protegidos com criptografia de nível bancário e conformidade com
+                LGPD.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+  <!-- Scheduling Features Section (full viewport height) -->
+  <section
+    id="pricing"
+    class="relative min-h-screen py-20 md:py-32 bg-dark-purple overflow-hidden flex items-center"
+    appScrollReveal
+  >
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl opacity-10 -z-10"></div>
+
+    <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8 text-white">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+          Reduza faltas em até <span class="text-primary-300">40%</span> com notificações automáticas.
+        </h2>
+        <p class="text-lg text-gray-200 leading-relaxed">
+          Envie lembretes automáticos para seus clientes via SMS e email. Aumente a taxa de presença e melhore a
+          experiência do cliente.
+        </p>
+        <button class="btn-primary">Comece agora</button>
+      </div>
+
+      <!-- Feature Card -->
+      <div class="bg-white/5 backdrop-blur border border-primary-400/30 rounded-2xl p-8 text-white space-y-6">
+        <div>
+          <p class="text-sm text-purple-200 mb-2">Antes com AgendaAí...</p>
+          <div class="text-3xl font-bold"><span class="text-primary-300">38%</span> de faltas</div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex justify-between text-sm">
+            <span class="text-purple-200">Depois com AgendaAí...</span>
+            <span class="text-primary-300">~10%</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-purple-200">Aumento de receita...</span>
+            <span class="text-primary-300">+28%</span>
+          </div>
+        </div>
+
+        <div class="space-y-3 border-t border-primary-400/20 pt-6">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="text-purple-200">Lembretes automáticos por SMS e email</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="text-purple-200">Confirmação de presença com 24h antes</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="text-purple-200">Rescheduling automático de faltas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why AgendaAí Section -->
+  <section id="integrations" class="py-20 md:py-32 bg-white" appScrollReveal>
+    <div class="section-container">
+      <div class="text-center space-y-4 mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Por que escolher AgendaAí?</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Confira as vantagens que já conquistaram milhares de empresas
         </p>
       </div>
 
-      <div class="feature-box">
-        <div class="feature-icon">🔔</div>
-        <h3>Lembretes automáticos</h3>
-        <p>
-          Envio automático de notificações por SMS e email para seus clientes não esquecerem dos compromissos.
+      <!-- Why Choose Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Implementação em Minutos</h3>
+          <p class="text-gray-600">
+            Configure sua presença online em menos de 5 minutos. Sem código necessário, sem configurações complexas.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Sem Taxas Escondidas</h3>
+          <p class="text-gray-600">
+            Preços transparentes. Pague somente pelo que usar, sem tarifas de setup, cancelamento ou limites de
+            agendamentos.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Suporte 24/7</h3>
+          <p class="text-gray-600">
+            Nossa equipe está sempre pronta para ajudar. Chat, email ou telefone - escolha o melhor para você.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Seu Domínio Personalizado</h3>
+          <p class="text-gray-600">
+            Conecte seu próprio domínio ou use nosso subdomínio. Totalmente customizável com suas cores e marca.
         </p>
       </div>
 
-      <div class="feature-box">
-        <div class="feature-icon">👥</div>
-        <h3>Gestão de equipe</h3>
-        <p>
-          Controle a agenda de vários profissionais ao mesmo tempo, com horários e serviços personalizados para cada um.
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Integrações Fáceis</h3>
+          <p class="text-gray-600">
+            Conecte com suas ferramentas favoritas via API simples. Zapier, Make e outras plataformas suportadas.
         </p>
       </div>
 
-      <div class="feature-box">
-        <div class="feature-icon">📊</div>
-        <h3>Relatórios detalhados</h3>
-        <p>
-          Acompanhe o desempenho do seu negócio com gráficos e estatísticas em tempo real direto do celular.
+        <div class="bg-gray-50 rounded-2xl p-8 space-y-4">
+          <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900">Mobile App</h3>
+          <p class="text-gray-600">
+            Gerencie seus agendamentos pelo celular. Apps disponíveis para iOS e Android.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
-  <h2>Pronto para começar?</h2>
-  <p>Teste grátis por 14 dias. Não precisa cadastrar cartão.</p>
-  <button mat-raised-button color="primary">
-    Criar conta grátis
-  </button>
-</section>
-
-<footer>
-  <div class="footer-content">
-    <div class="footer-brand">
-      <h3>Agendou</h3>
-      <p>
-        Sistema de agendamento online para comércios locais. Simplifique sua rotina e cresça seu negócio.
+  <!-- CTA Section -->
+  <section class="py-20 md:py-32 bg-gradient-to-br from-primary-600 to-primary-700">
+    <div class="section-container text-center space-y-8">
+      <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">Comece a receber agora mesmo</h2>
+      <p class="text-xl text-primary-100 max-w-2xl mx-auto">
+        Integre AgendaAí em seu negócio e veja seus agendamentos crescerem de forma exponencial.
       </p>
+      <button
+        class="px-8 py-4 bg-white text-primary-700 font-bold rounded-lg hover:bg-primary-50 transition-colors inline-flex items-center gap-2"
+      >
+        Começar agora
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+  </button>
+    </div>
+</section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12 md:py-16">
+    <div class="section-container">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <span class="text-lg font-bold text-white">AgendaAí</span>
+          </div>
+          <p class="text-sm">Sistema de agendamento para comércios locais.</p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-4">Produtos</h4>
+          <ul class="space-y-2 text-sm">
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Dashboard</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Integração API</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Mobile App</a>
+            </li>
+          </ul>
     </div>
 
-    <div class="footer-column">
-      <h4>Produto</h4>
-      <ul>
-        <li><a href="#">Recursos</a></li>
-        <li><a href="#">Preços</a></li>
-        <li><a href="#">Casos de uso</a></li>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Companhia</h4>
+          <ul class="space-y-2 text-sm">
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Sobre</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Blog</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Carreiras</a>
+            </li>
       </ul>
     </div>
 
-    <div class="footer-column">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#">Sobre nós</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contato</a></li>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Legal</h4>
+          <ul class="space-y-2 text-sm">
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Termos</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Segurança</a>
+            </li>
       </ul>
     </div>
 
-    <div class="footer-column">
-      <h4>Ajuda</h4>
-      <ul>
-        <li><a href="#">Central de ajuda</a></li>
-        <li><a href="#">Documentação</a></li>
-        <li><a href="#">Status</a></li>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Contato</h4>
+          <ul class="space-y-2 text-sm">
+            <li>
+              <a href="mailto:contato@agendaai.com" class="hover:text-white transition-colors">
+                contato@agendaai.com
+              </a>
+            </li>
+            <li>
+              <a href="tel:+551133334444" class="hover:text-white transition-colors">(11) 3333-4444</a>
+            </li>
       </ul>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    © 2024 Agendou. Todos os direitos reservados.
+      <div class="border-t border-gray-800 pt-8">
+        <p class="text-sm text-center">© 2024 AgendaAí. Todos os direitos reservados.</p>
+      </div>
   </div>
 </footer>
-
-
+</div>
