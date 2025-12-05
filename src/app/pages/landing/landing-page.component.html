@@ -91,16 +91,16 @@
 
   <!-- Hero Section -->
   <div
-    class="relative overflow-hidden bg-gradient-to-br from-white via-primary-50 to-white min-h-screen flex flex-col"
+    class="relative overflow-hidden bg-gradient-to-br from-white via-primary-50 to-white h-screen flex flex-col"
   >
     <!-- Decorative elements -->
     <div class="absolute top-20 right-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
 
-    <div class="flex-grow flex flex-col justify-center pt-20 pb-8">
-      <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
+    <div class="flex-1 flex flex-col justify-center items-center pt-4 pb-0 min-h-0 overflow-hidden">
+      <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-4">
         <!-- Left Content -->
-        <div class="space-y-6" appScrollReveal>
+        <div class="space-y-5" appScrollReveal>
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full">
           <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
           <span class="text-sm font-medium text-primary-600">Solução completa de agendamento</span>
@@ -118,13 +118,13 @@
         </div>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
           <button class="btn-primary">Integre ao seu negócio</button>
           <button class="btn-outline">Por que usar?</button>
         </div>
 
         <!-- Social Proof -->
-        <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
+        <div class="flex items-center gap-4 pt-5 border-t border-gray-200">
           <div class="flex -space-x-3">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600"></div>
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600"></div>
@@ -151,7 +151,7 @@
             </div>
 
             <!-- Dashboard Content -->
-            <div class="p-6 space-y-6">
+            <div class="p-5 space-y-5">
               <!-- Stats Row -->
               <div class="grid grid-cols-3 gap-4">
                 <div class="text-center">
@@ -169,29 +169,29 @@
               </div>
 
               <!-- Chart -->
-              <div class="h-24 bg-gradient-to-t from-primary-100 to-primary-50 rounded-lg flex items-end gap-1 p-3">
-                <div class="flex-1 bg-primary-400 rounded-t h-12"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-16"></div>
+              <div class="h-20 bg-gradient-to-t from-primary-100 to-primary-50 rounded-lg flex items-end gap-1 p-3">
                 <div class="flex-1 bg-primary-400 rounded-t h-10"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-20"></div>
                 <div class="flex-1 bg-primary-400 rounded-t h-14"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-8"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-16"></div>
+                <div class="flex-1 bg-primary-400 rounded-t h-12"></div>
               </div>
 
               <!-- Recent Booking -->
-              <div class="border-t border-gray-200 pt-4 space-y-3">
+              <div class="border-t border-gray-200 pt-4 space-y-2">
                 <p class="text-xs font-medium text-gray-500 uppercase">Próximos agendamentos</p>
                 <div class="space-y-2">
-                  <div class="flex items-center gap-3 text-sm">
-                    <div class="w-8 h-8 rounded-full bg-primary-100"></div>
+                  <div class="flex items-center gap-2.5 text-sm">
+                    <div class="w-7 h-7 rounded-full bg-primary-100"></div>
                     <div>
-                      <p class="font-medium text-gray-900">Corte + Barba</p>
+                      <p class="font-medium text-gray-900 text-sm">Corte + Barba</p>
                       <p class="text-xs text-gray-600">João Silva - 14:00</p>
                     </div>
                   </div>
-                  <div class="flex items-center gap-3 text-sm">
-                    <div class="w-8 h-8 rounded-full bg-primary-100"></div>
+                  <div class="flex items-center gap-2.5 text-sm">
+                    <div class="w-7 h-7 rounded-full bg-primary-100"></div>
                     <div>
-                      <p class="font-medium text-gray-900">Manicure</p>
+                      <p class="font-medium text-gray-900 text-sm">Manicure</p>
                       <p class="text-xs text-gray-600">Maria Santos - 15:30</p>
                     </div>
                   </div>
@@ -204,7 +204,7 @@
     </div>
 
     <!-- Feature Carousel pinned to bottom of first screen -->
-    <div class="w-full">
+    <div class="w-full flex-shrink-0">
       <div class="feature-carousel-container">
           <div class="feature-marquee">
             <!-- Grupo 1 -->
