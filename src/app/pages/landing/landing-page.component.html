@@ -90,9 +90,7 @@
 </header>
 
   <!-- Hero Section -->
-  <div
-    class="relative overflow-hidden bg-gradient-to-br from-white via-primary-50 to-white h-screen flex flex-col"
-  >
+  <div class="relative overflow-hidden bg-white h-screen flex flex-col">
     <!-- Decorative elements -->
     <div class="absolute top-20 right-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
@@ -101,8 +99,7 @@
       <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-4">
         <!-- Left Content -->
         <div class="space-y-5" appScrollReveal>
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 rounded-full">
-          <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
+        <div class="inline-flex items-center px-4 py-2 bg-primary-50 rounded-full">
           <span class="text-sm font-medium text-primary-600">Solução completa de agendamento</span>
     </div>
 
@@ -125,14 +122,30 @@
 
         <!-- Social Proof -->
         <div class="flex items-center gap-4 pt-5 border-t border-gray-200">
-          <div class="flex -space-x-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600"></div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600"></div>
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-pink-600"></div>
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700"
+        >
+          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100">
+              <!-- Trust / badge icon -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3l7 4v5c0 4.418-3.134 8.418-7 9-3.866-.582-7-4.582-7-9V7l7-4z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4"
+                />
+              </svg>
+            </span>
+            <span class="text-sm font-medium">
+              Construído ao lado de profissionais de diversas áreas
+            </span>
           </div>
-          <p class="text-sm text-gray-600">
-            <span class="font-bold text-gray-900">+5,000</span> negócios já agendando
-          </p>
         </div>
       </div>
 
@@ -205,7 +218,7 @@
 
     <!-- Feature Carousel pinned to bottom of first screen -->
     <div class="w-full flex-shrink-0">
-      <div class="feature-carousel-container">
+      <div id="feature-carousel" class="feature-carousel-container" [class.scroll-closed]="isCarouselClosed">
           <div class="feature-marquee">
             <!-- Grupo 1 -->
             <div class="feature-marquee-group">
@@ -429,7 +442,9 @@
           <br />
           <span class="relative inline-block">
             agendamento.
-            <span class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10"></span>
+            <span
+              class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10 highlight-underline"
+            ></span>
           </span>
         </h2>
         <p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
@@ -519,7 +534,9 @@
             Uma plataforma
             <span class="relative inline-block">
               completa
-              <span class="absolute bottom-1 left-0 w-full h-3 bg-primary-300 -z-10"></span>
+              <span
+                class="absolute bottom-1 left-0 w-full h-3 bg-primary-300 -z-10 highlight-underline"
+              ></span>
             </span>
             <br />
             para o seu negócio.
@@ -614,7 +631,35 @@
           Envie lembretes automáticos para seus clientes via SMS e email. Aumente a taxa de presença e melhore a
           experiência do cliente.
         </p>
-        <button class="btn-primary">Comece agora</button>
+        <div class="flex items-center gap-4 md:gap-6">
+          <button class="btn-primary">Comece agora</button>
+
+          <!-- Seta decorativa apontando para o botão (estática) -->
+          <svg
+            class="hidden md:block w-20 h-20 text-primary-300 mt-20"
+            viewBox="0 0 365.28 365.28"
+            aria-hidden="true"
+          >
+            <g transform="rotate(180 182.64 182.64)">
+              <path
+                d="M364.091,335.48c-19.584-32.436-40.392-64.26-59.976-96.695c-3.672-6.12-14.076-3.673-13.465,3.672
+                  c0,14.076,0.612,27.54,0.612,41.616c-9.792-10.404-12.24-22.645-14.076-37.332c-1.224-6.12-3.672-12.853-10.403-14.688
+                  c-10.404-3.06-22.032,7.344-29.988,12.852c-20.196,14.076-38.556,30.601-60.588,42.229c-25.704,12.852-26.316-5.508-20.808-25.704
+                  c5.508-21.42,15.3-42.84,26.316-61.812c19.584-33.048,42.229-67.32,47.736-105.876c3.06-21.42-7.956-53.856-34.885-52.632
+                  c-33.047,1.224-70.992,25.704-92.412,50.184c-12.24,12.24-82.008,104.04-88.74,51.408c-4.896-38.556,26.928-85.68,45.9-117.504
+                  c2.448-4.284-3.672-8.568-6.732-4.896C28.715,49.677,9.743,87.009,1.175,124.341c-4.284,20.196,2.448,57.528,31.824,49.572
+                  c34.272-9.18,56.916-47.736,78.948-73.44c13.464-16.524,34.884-28.764,53.244-38.556c39.168-20.808,56.916,9.792,47.124,45.288
+                  c-12.239,43.452-43.452,78.947-61.2,119.952c-6.12,14.688-28.152,63.647-4.284,75.888c27.54,14.076,64.26-20.809,83.844-36.108
+                  c-1.224,0.612,31.212-25.704,33.048-20.195c1.836,5.508,1.836,12.239,3.061,18.359c2.447,11.628,7.344,20.809,15.3,28.152
+                  c-11.628-0.612-23.256,0-34.884,1.836c-6.12,1.224-6.732,10.404-1.836,13.464c34.884,19.584,74.052,24.48,111.384,37.332
+                  C362.255,348.333,367.763,340.989,364.091,335.48z M297.995,304.269c3.672,0,4.896-3.06,4.284-5.508
+                  c1.836-1.224,3.06-3.06,3.06-5.508c0-7.956,0-16.524,0-24.48c12.24,19.584,24.48,38.557,36.72,58.141
+                  c-23.256-6.732-47.124-11.628-69.155-20.809C280.859,305.493,289.427,304.881,297.995,304.269z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
 
       <!-- Feature Card -->
@@ -790,7 +835,7 @@
 </section>
 
   <!-- CTA Section -->
-  <section class="py-20 md:py-32 bg-gradient-to-br from-primary-600 to-primary-700">
+  <section class="py-20 md:py-32 bg-gradient-to-br from-primary-600 to-primary-700" appScrollReveal>
     <div class="section-container text-center space-y-8">
       <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">Comece a receber agora mesmo</h2>
       <p class="text-xl text-primary-100 max-w-2xl mx-auto">
@@ -803,12 +848,12 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
-  </button>
+      </button>
     </div>
-</section>
+  </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-12 md:py-16">
+  <footer class="bg-black text-gray-400 py-12 md:py-16">
     <div class="section-container">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
         <div>
@@ -888,7 +933,7 @@
     </div>
   </div>
 
-      <div class="border-t border-gray-800 pt-8">
+      <div class="border-t border-gray-900 pt-8">
         <p class="text-sm text-center">© 2024 AgendaAí. Todos os direitos reservados.</p>
       </div>
   </div>
