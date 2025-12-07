@@ -26,7 +26,7 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             el.classList.remove('opacity-0', 'translate-y-6');
-            el.classList.add('opacity-100', 'translate-y-0');
+            el.classList.add('opacity-100', 'translate-y-0', 'scroll-revealed');
             this.observer?.unobserve(el);
           }
         });

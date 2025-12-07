@@ -1,6 +1,6 @@
 // Estilos específicos da landing.
 
-/* Carrossel de funcionalidades (similar ao carrossel de empresas da AbacatePay) */
+/* Carrossel de funcionalidades (marquee infinito) */
 .feature-carousel-container {
   position: relative;
   width: 100%;
@@ -9,34 +9,65 @@
   border-top: 1px solid #f3f4f6;
   border-bottom: 1px solid #f3f4f6;
   padding: 0.75rem 0;
+  transform-origin: top center;
+  transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  opacity: 1;
+  transform: scaleY(1);
 }
 
+/* Animação de pergaminho fechando quando scrolla para baixo */
+.feature-carousel-container.scroll-closed {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+/* Trilho que desliza: 2 grupos idênticos, cada um ocupando 50% da largura */
 .feature-marquee {
   display: flex;
+  width: 200%;
   animation: marquee 40s linear infinite;
-  width: max-content;
 }
 
+/* Cada grupo ocupa exatamente metade da largura e distribui os itens
+   igualmente de ponta a ponta, sem "rabos" em branco nas extremidades. */
 .feature-marquee-group {
+  flex: 0 0 50%;
   display: flex;
   align-items: center;
-  gap: 2.5rem;
-  padding: 0 2rem;
+  justify-content: space-around;
+  padding: 0 2.5rem;
 }
+
+/* Animação de "pintura" das palavras destacadas quando a seção entra em viewport */
+.highlight-underline {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-revealed .highlight-underline {
+  transform: scaleX(1);
+}
+
+/* (Removido) animação da seta – mantida apenas como SVG estático */
 
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
+    /* -50% da largura do trilho (2 grupos) = largura exata de 1 grupo */
     transform: translateX(-50%);
   }
 }
 
 @media (max-width: 768px) {
   .feature-marquee-group {
-    gap: 1.5rem;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
   .feature-marquee {
     animation-duration: 30s;

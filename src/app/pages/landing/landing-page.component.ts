@@ -1,6 +1,7 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   HostListener,
   AfterViewInit,
@@ -24,10 +25,12 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 })
 export class LandingPageComponent implements AfterViewInit {
   private readonly landingService = inject(LandingService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   private darkSectionTop = 0;
   private darkSectionBottom = 0;
   protected isOnDarkBackground = false;
+  protected isCarouselClosed = false;
 
   stats$: Observable<Stat[]> = this.landingService.getStats();
 
@@ -50,11 +53,13 @@ export class LandingPageComponent implements AfterViewInit {
       this.darkSectionBottom = 0;
     }
     this.updateHeaderTheme();
+    this.updateCarouselState();
   }
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
     this.updateHeaderTheme();
+    this.updateCarouselState();
   }
 
   private updateHeaderTheme(): void {
@@ -69,6 +74,20 @@ export class LandingPageComponent implements AfterViewInit {
 
     this.isOnDarkBackground =
       headerY >= this.darkSectionTop && headerY <= this.darkSectionBottom;
+  }
+
+  private updateCarouselState(): void {
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    
+    // Fecha o carrossel quando o usuário começa a rolar (depois de ~50px de scroll)
+    // Assim a animação acontece enquanto o carrossel ainda está visível
+    const scrollThreshold = 50;
+    const shouldClose = scrollY > scrollThreshold;
+    
+    if (this.isCarouselClosed !== shouldClose) {
+      this.isCarouselClosed = shouldClose;
+      this.cdr.markForCheck();
+    }
   }
 }
 
