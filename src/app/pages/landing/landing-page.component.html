@@ -3,7 +3,11 @@
   <header class="sticky top-0 z-50 bg-transparent backdrop-blur-md border-b border-white/10">
     <nav class="section-container flex items-center h-20">
       <!-- Logo -->
-      <div class="flex items-center gap-2">
+      <a 
+        href="#"
+        (click)="scrollToTop(); $event.preventDefault()"
+        class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+      >
         <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -20,7 +24,7 @@
         >
           AgendaAí
         </span>
-      </div>
+      </a>
 
       <!-- Right side: Menu + divider + Auth buttons -->
       <div class="hidden md:flex items-center gap-6 ml-auto">
@@ -49,7 +53,7 @@
             Soluções
           </a>
           <a
-            href="#"
+            href="#planos"
             class="px-3 py-2 rounded-lg text-base font-medium transition-colors"
             [ngClass]="
               isOnDarkBackground
@@ -76,7 +80,7 @@
           >
             Login
           </button>
-          <button class="btn-primary text-base">Começar agora</button>
+          <a href="/cadastro" class="btn-primary text-base">Começar agora</a>
         </div>
       </div>
 
@@ -434,29 +438,43 @@
     </div>
 
   <!-- Features Section -->
-  <section id="features" class="py-20 md:py-32 bg-white" appScrollReveal>
-    <div class="section-container">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Recursos completos de
-          <br />
+  <section id="features" class="min-h-screen py-20 md:py-32 bg-gray-50 flex items-center" appScrollReveal>
+    <div class="section-container w-full">
+      <!-- Header Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6">
+            Recursos completos para
           <span class="relative inline-block">
-            agendamento.
+              gerenciar agendamentos.
             <span
-              class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10 highlight-underline"
+                class="absolute bottom-1 left-0 w-full h-3 bg-primary-300 rounded-full -z-10"
+                style="opacity: 0.3;"
             ></span>
           </span>
         </h2>
-        <p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
-          Tudo que você precisa para gerenciar agendamentos de forma fácil e eficiente
-        </p>
+        </div>
+        <div class="flex items-center justify-center lg:justify-end">
+          <div class="grid grid-cols-2 gap-8">
+            <div class="text-center lg:text-left">
+              <div class="text-4xl md:text-5xl font-bold text-primary-600 mb-2">24/7</div>
+              <div class="text-sm text-gray-600">Disponível sempre</div>
+            </div>
+            <div class="text-center lg:text-left">
+              <div class="text-4xl md:text-5xl font-bold text-primary-600 mb-2">100%</div>
+              <div class="text-sm text-gray-600">Online e automático</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
-            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature Card 1 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -465,15 +483,20 @@
               ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900">Calendário Online</h3>
-          <p class="text-sm text-gray-600">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Calendário online.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
             Seu calendário disponível 24/7 para que clientes agendem quando quiser, sem intermediadores.
+              Totalmente integrado e sincronizado em tempo real.
           </p>
+          </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
-            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Feature Card 2 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -482,15 +505,20 @@
               ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900">Notificações</h3>
-          <p class="text-sm text-gray-600">
-            Automatize confirmações e lembretes para reduzir faltas e melhorar a experiência.
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Notificações automáticas.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Automatize confirmações e lembretes por SMS e email para reduzir faltas e melhorar a experiência 
+              do cliente, tudo funcionando no piloto automático.
           </p>
           </div>
+          </div>
 
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
-            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Feature Card 3 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -499,15 +527,20 @@
               ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900">Perfis de Profissionais</h3>
-          <p class="text-sm text-gray-600">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Múltiplos profissionais.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
             Organize múltiplos profissionais ou locais e permita agendamentos com quem o cliente preferir.
+              Cada profissional tem seu próprio calendário e disponibilidade.
           </p>
+          </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center">
-            <svg class="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Feature Card 4 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -516,97 +549,198 @@
               ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-gray-900">Link compartilhável</h3>
-          <p class="text-sm text-gray-600">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Link compartilhável.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
             Compartilhe seu calendário nas redes sociais, WhatsApp, email e integre em seu site.
-          </p>
+              Links personalizados e QR codes para facilitar o acesso dos clientes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Card 5 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 7h18M3 10h18M7 15h1m4 0h1m4 0h1M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Pagamentos integrados.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Receba pagamentos online diretamente pelo sistema, com múltiplas formas de pagamento integradas 
+              ao processo de agendamento.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Card 6 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 17v-6m4 6V7m4 10V9M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Relatórios detalhados.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Acompanhe métricas importantes e tome decisões baseadas em dados reais do seu negócio. 
+              Visualize agendamentos, cancelamentos e taxa de ocupação.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Card 7 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-1a4 4 0 00-4-4h-1M7 20H2v-1a4 4 0 014-4h1m10-5a3 3 0 11-6 0 3 3 0 016 0zM9 7a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Gestão de clientes.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Mantenha um histórico completo de cada cliente, com preferências e histórico de agendamentos. 
+              Facilite o relacionamento e a fidelização.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Card 8 -->
+        <div class="feature-card bg-white rounded-lg p-6 space-y-4 hover:shadow-lg transition-all duration-300 cursor-pointer">
+          <div class="h-1 w-12 bg-primary-500 rounded-full mb-4"></div>
+          <div class="feature-card-icon w-12 h-12 flex items-center justify-center transition-transform duration-300">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Horários flexíveis.</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Configure diferentes horários de funcionamento, bloqueios e disponibilidade por profissional. 
+              Total controle sobre quando seu negócio está aberto para agendamentos.
+            </p>
+          </div>
       </div>
     </div>
   </div>
 </section>
 
   <!-- Solutions Section -->
-  <section id="solutions" class="py-20 md:py-32 bg-gray-50" appScrollReveal>
-    <div class="section-container">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-        <div class="space-y-6">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-            Uma plataforma
+  <section id="solutions" class="min-h-screen py-20 md:py-32 bg-gray-50 flex items-center" appScrollReveal>
+    <div class="section-container w-full">
+      <!-- Header Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+            Uma suite de
             <span class="relative inline-block">
-              completa
+              soluções
               <span
-                class="absolute bottom-1 left-0 w-full h-3 bg-primary-300 -z-10 highlight-underline"
+                class="absolute bottom-2 left-0 w-full h-4 bg-primary-300 rounded-full -z-10"
+                style="opacity: 0.3;"
               ></span>
             </span>
             <br />
             para o seu negócio.
           </h2>
-          <p class="text-lg text-gray-600">
-            Gerencia agendamentos, clientes e operações em um único lugar. AgendaAí oferece tudo que você precisa para
-            crescer, com ferramentas intuitivas e suporte dedicado para o seu sucesso.
+        </div>
+        <div class="flex items-center">
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Centralize as operações do seu negócio com uma suíte completa que une agendamentos, clientes e automações. 
+            Nossa tecnologia foi desenvolvida para garantir eficiência, organização e escalabilidade à medida que o seu negócio evolui.
           </p>
-          <button class="btn-primary">Conhecer mais</button>
+        </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-6">
           <!-- Solution Cards -->
-          <div class="space-y-6">
-            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
-              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="solution-card bg-white rounded-2xl p-8 space-y-6 hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div class="solution-card-icon w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl flex items-center justify-center transition-transform duration-300">
+            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
                 ></path>
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Cobranças Automáticas</h3>
-              <p class="text-sm text-gray-600 mt-2">
-                Receba pagamentos automaticamente pelos agendamentos. Sem burocracia, sem demora, direto no seu bolso.
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Reduza faltas e aumente receita.</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Com notificações automáticas e confirmações inteligentes, você reduz drasticamente as faltas e aumenta 
+              sua taxa de ocupação. Menos tempo ocioso significa mais agendamentos confirmados e receita crescente 
+              para o seu negócio.
               </p>
             </div>
           </div>
 
-          <div class="space-y-6">
-            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
-              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Card 2 -->
+        <div class="solution-card bg-white rounded-2xl p-8 space-y-6 hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div class="solution-card-icon w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl flex items-center justify-center transition-transform duration-300">
+            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Relatórios e Análises</h3>
-              <p class="text-sm text-gray-600 mt-2">
-                Acompanhe métricas importantes: agendamentos, cancelamentos, taxa de ocupação e crescimento do seu
-                negócio.
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Economize tempo e automatize processos.</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Elimine tarefas manuais e processos repetitivos. O sistema gerencia confirmações, lembretes e 
+              reagendamentos automaticamente, liberando seu tempo para focar no que realmente importa: 
+              atender bem seus clientes e fazer seu negócio crescer.
               </p>
             </div>
   </div>
 
-          <div class="space-y-6">
-            <div class="h-32 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl flex items-center justify-center">
-              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Card 3 -->
+        <div class="solution-card bg-white rounded-2xl p-8 space-y-6 hover:shadow-xl transition-all duration-300 cursor-pointer">
+          <div class="solution-card-icon w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-50 rounded-2xl flex items-center justify-center transition-transform duration-300">
+            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                d="M17 20h5v-1a4 4 0 00-4-4h-1M7 20H2v-1a4 4 0 014-4h1m10-5a3 3 0 11-6 0 3 3 0 016 0zM9 7a3 3 0 11-6 0 3 3 0 016 0z"
                 ></path>
               </svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Segurança e Privacidade</h3>
-              <p class="text-sm text-gray-600 mt-2">
-                Seus dados e os dos seus clientes são protegidos com criptografia de nível bancário e conformidade com
-                LGPD.
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Melhore a experiência do cliente.</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Ofereça uma experiência moderna e conveniente para seus clientes. Agendamento online 24/7, lembretes 
+              automáticos e facilidade para reagendar criam uma jornada fluida que aumenta a satisfação e fideliza 
+              seus clientes.
               </p>
-            </div>
           </div>
         </div>
       </div>
@@ -628,8 +762,9 @@
           Reduza faltas em até <span class="text-primary-300">40%</span> com notificações automáticas.
         </h2>
         <p class="text-lg text-gray-200 leading-relaxed">
-          Envie lembretes automáticos para seus clientes via SMS e email. Aumente a taxa de presença e melhore a
-          experiência do cliente.
+          Lembretes automáticos enviados nos momentos certos reduzem drasticamente faltas e mantêm sua operação eficiente.
+          <br /><br />
+          Confirmação, reagendamento e aviso antecipado, tudo funcionando no piloto automático.
         </p>
         <div class="flex items-center gap-4 md:gap-6">
           <button class="btn-primary">Comece agora</button>
@@ -665,18 +800,21 @@
       <!-- Feature Card -->
       <div class="bg-white/5 backdrop-blur border border-primary-400/30 rounded-2xl p-8 text-white space-y-6">
         <div>
-          <p class="text-sm text-purple-200 mb-2">Antes com AgendaAí...</p>
-          <div class="text-3xl font-bold"><span class="text-primary-300">38%</span> de faltas</div>
+          <p class="text-sm text-purple-200 mb-2">Aumento na taxa de presença</p>
+          <div class="text-3xl font-bold">
+            <span class="text-primary-300">+10 a +15</span>
+            <span class="text-lg text-purple-200 ml-2">p.p.</span>
+          </div>
         </div>
 
-        <div class="space-y-3">
-          <div class="flex justify-between text-sm">
-            <span class="text-purple-200">Depois com AgendaAí...</span>
-            <span class="text-primary-300">~10%</span>
+        <div class="space-y-3 border-t border-primary-400/20 pt-4">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-purple-200">Aumento médio</span>
+            <span class="text-lg font-bold text-primary-300">+10 a +15 p.p.</span>
           </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-purple-200">Aumento de receita...</span>
-            <span class="text-primary-300">+28%</span>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-purple-200">Melhor cenário</span>
+            <span class="text-lg font-bold text-primary-300">até +18 p.p.</span>
           </div>
         </div>
 
@@ -709,7 +847,7 @@
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span class="text-purple-200">Rescheduling automático de faltas</span>
+            <span class="text-purple-200">Confirmação e reagendamento automático</span>
           </div>
         </div>
       </div>
@@ -834,11 +972,306 @@
   </div>
 </section>
 
+  <!-- Pricing Section -->
+  <section id="planos" class="py-20 md:py-32 bg-white" appScrollReveal>
+    <div class="section-container">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Planos que se adaptam ao seu
+          <br />
+          <span class="relative inline-block">
+            negócio.
+            <span
+              class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10 highlight-underline"
+            ></span>
+          </span>
+        </h2>
+        <p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
+          Escolha o plano ideal para o tamanho do seu negócio. Sem taxas escondidas, cancele quando quiser.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Plano Básico -->
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-primary-300 transition-all hover:shadow-lg">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Básico</h3>
+              <p class="text-sm text-gray-600">Perfeito para começar</p>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl font-bold text-gray-900">R$ 49</span>
+                <span class="text-gray-600">/mês</span>
+              </div>
+            </div>
+            <button class="w-full btn-outline">Começar agora</button>
+            <div class="space-y-4 pt-6 border-t border-gray-200">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Calendário online 24/7</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Até 2 profissionais</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Notificações por email</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Gestão de clientes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plano Profissional (Destaque) -->
+        <div class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 text-white relative transform scale-105 shadow-2xl">
+          <div class="absolute top-4 right-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white">
+              Mais Popular
+            </span>
+          </div>
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Profissional</h3>
+              <p class="text-sm text-primary-100">Para negócios em crescimento</p>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl font-bold">R$ 70</span>
+                <span class="text-primary-100">/mês</span>
+              </div>
+            </div>
+            <button class="w-full bg-white text-primary-600 font-semibold py-3 rounded-lg hover:bg-primary-50 transition-colors">
+              Começar agora
+            </button>
+            <div class="space-y-4 pt-6 border-t border-primary-400/30">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Calendário online 24/7</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Até 10 profissionais</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">SMS + Email</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Gestão de clientes</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Pagamentos online</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Relatórios avançados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-primary-100">Suporte prioritário</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plano Enterprise -->
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-primary-300 transition-all hover:shadow-lg">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Enterprise</h3>
+              <p class="text-sm text-gray-600">Para grandes empresas</p>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl font-bold text-gray-900">R$ 150</span>
+                <span class="text-gray-600">/mês</span>
+              </div>
+            </div>
+            <button class="w-full btn-outline">Começar agora</button>
+            <div class="space-y-4 pt-6 border-t border-gray-200">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Calendário online 24/7</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Profissionais ilimitados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">SMS + Email</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Gestão de clientes</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Pagamentos online</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Relatórios avançados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Suporte prioritário</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Multi-localidades</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Backup automático</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ ou Nota adicional -->
+      <div class="mt-12 text-center">
+        <p class="text-sm text-gray-600">
+          Todos os planos incluem teste gratuito de 14 dias. Sem necessidade de cartão de crédito.
+        </p>
+    </div>
+  </div>
+</section>
+
   <!-- CTA Section -->
-  <section class="py-20 md:py-32 bg-gradient-to-br from-primary-600 to-primary-700" appScrollReveal>
+  <section class="py-20 md:py-32 bg-dark-purple" appScrollReveal>
     <div class="section-container text-center space-y-8">
       <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">Comece a receber agora mesmo</h2>
-      <p class="text-xl text-primary-100 max-w-2xl mx-auto">
+      <p class="text-xl text-gray-200 max-w-2xl mx-auto">
         Integre AgendaAí em seu negócio e veja seus agendamentos crescerem de forma exponencial.
       </p>
       <button
@@ -853,7 +1286,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-black text-gray-400 py-12 md:py-16">
+  <footer class="bg-white text-gray-600 py-12 md:py-16">
     <div class="section-container">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
         <div>
@@ -868,73 +1301,73 @@
                 ></path>
               </svg>
             </div>
-            <span class="text-lg font-bold text-white">AgendaAí</span>
+            <span class="text-lg font-bold text-gray-900">AgendaAí</span>
           </div>
-          <p class="text-sm">Sistema de agendamento para comércios locais.</p>
+          <p class="text-sm text-gray-600">Sistema de agendamento para comércios locais.</p>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4">Produtos</h4>
+          <h4 class="text-gray-900 font-semibold mb-4">Produtos</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="#" class="hover:text-white transition-colors">Dashboard</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Dashboard</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Integração API</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Integração API</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Mobile App</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Mobile App</a>
             </li>
           </ul>
     </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4">Companhia</h4>
+          <h4 class="text-gray-900 font-semibold mb-4">Companhia</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="#" class="hover:text-white transition-colors">Sobre</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Sobre</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Blog</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Blog</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Carreiras</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Carreiras</a>
             </li>
       </ul>
     </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4">Legal</h4>
+          <h4 class="text-gray-900 font-semibold mb-4">Legal</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Privacidade</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Termos</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Termos</a>
             </li>
             <li>
-              <a href="#" class="hover:text-white transition-colors">Segurança</a>
+              <a href="#" class="hover:text-primary-600 transition-colors">Segurança</a>
             </li>
       </ul>
     </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4">Contato</h4>
+          <h4 class="text-gray-900 font-semibold mb-4">Contato</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="mailto:contato@agendaai.com" class="hover:text-white transition-colors">
+              <a href="mailto:contato@agendaai.com" class="hover:text-primary-600 transition-colors">
                 contato@agendaai.com
               </a>
             </li>
             <li>
-              <a href="tel:+551133334444" class="hover:text-white transition-colors">(11) 3333-4444</a>
+              <a href="tel:+551133334444" class="hover:text-primary-600 transition-colors">(11) 3333-4444</a>
             </li>
       </ul>
     </div>
   </div>
 
-      <div class="border-t border-gray-900 pt-8">
-        <p class="text-sm text-center">© 2024 AgendaAí. Todos os direitos reservados.</p>
+      <div class="border-t border-gray-200 pt-8">
+        <p class="text-sm text-center text-gray-600">© 2024 AgendaAí. Todos os direitos reservados.</p>
       </div>
   </div>
 </footer>

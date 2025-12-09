@@ -1,0 +1,43 @@
+// Estilos customizados para a página de cadastro baseada no Figma
+
+// Garantir que a fonte Poppins seja aplicada e prevenir scroll
+:host {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// Prevenir scroll no body quando estiver nesta página
+:host-context(body) {
+  overflow: hidden;
+}
+
+// Ajustes para inputs
+input {
+  &::placeholder {
+    color: #686677;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+// Transições suaves
+button, input {
+  transition-property: color, background-color, border-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+// Ajuste para o container do formulário em mobile
+@media (max-width: 1024px) {
+  .lg\:rounded-tl-\[60px\] {
+    border-top-left-radius: 0;
+  }
+  
+  .lg\:rounded-bl-\[60px\] {
+    border-bottom-left-radius: 0;
+  }
+}
