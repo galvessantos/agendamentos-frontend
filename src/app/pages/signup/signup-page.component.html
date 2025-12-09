@@ -1,0 +1,270 @@
+<div class="h-screen bg-figma-bg flex overflow-hidden">
+  <!-- Left Side - Purple Container -->
+  <div class="hidden lg:flex lg:w-[608px] h-screen bg-primary-600 rounded-r-[20px] relative overflow-hidden">
+    <div class="w-full h-full p-9 flex flex-col">
+      <!-- Logo -->
+      <div class="flex items-center gap-4 mb-12">
+        <div class="w-12 h-9 flex items-center justify-center">
+          <svg class="w-full h-full" viewBox="0 0 37 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7.79" y="25.96" width="22.07" height="11.04" fill="#FE3278"/>
+            <rect x="7.79" y="37" width="22.07" height="11.04" fill="#FCD451"/>
+            <rect x="12.98" y="11.04" width="11.04" height="11.04" fill="#FAFAFF"/>
+          </svg>
+        </div>
+        <span class="text-xl font-semibold text-white" style="font-family: 'Poppins', sans-serif;">AgendaAí</span>
+      </div>
+
+      <!-- Header + Description -->
+      <div class="flex-1 flex flex-col justify-center mb-12">
+        <h2 class="text-5xl font-semibold text-figma-textWhite mb-6 leading-tight" style="font-family: 'Poppins', sans-serif;">
+          Conectando talentos a oportunidades
+        </h2>
+        <p class="text-lg text-figma-textLight leading-relaxed" style="font-family: 'Poppins', sans-serif;">
+          Descubra oportunidades infinitas no AgendaAí, onde profissionais talentosos e empresas se unem. Comece agora mesmo conosco!
+        </p>
+      </div>
+
+      <!-- Review Card -->
+      <div class="bg-primary-800/80 rounded-2xl p-6 mb-5 transition-opacity duration-500 border border-primary-400/30 shadow-lg">
+        <div class="flex flex-col gap-5">
+          <p class="text-base text-figma-textGray leading-relaxed" style="font-family: 'Poppins', sans-serif;">
+            {{ currentTestimonial.text }}
+          </p>
+          <div class="flex items-center gap-2.5">
+            <div class="w-[52px] h-[49px] rounded-lg bg-gray-300 overflow-hidden flex-shrink-0">
+              <!-- Avatar placeholder -->
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-sm font-medium text-figma-textWhite" style="font-family: 'Poppins', sans-serif;">
+                {{ currentTestimonial.name }}
+              </span>
+              <span class="text-xs text-figma-textGray opacity-80" style="font-family: 'Poppins', sans-serif;">
+                {{ currentTestimonial.role }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider dots -->
+      <div class="flex items-center gap-2 justify-center">
+        @for (testimonial of testimonials; track $index) {
+          <button
+            type="button"
+            (click)="goToTestimonial($index)"
+            class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+            [class.bg-white]="currentTestimonialIndex() === $index"
+            [class.bg-white/30]="currentTestimonialIndex() !== $index"
+            [attr.aria-label]="'Ir para depoimento ' + ($index + 1)"
+          ></button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side - Form -->
+  <div class="flex-1 lg:w-[630px] h-screen flex items-center justify-center px-4 lg:px-0 py-4 overflow-hidden">
+    <div class="w-full max-w-[630px]">
+      <!-- Back Button -->
+      <div class="mb-4">
+          <a routerLink="/" class="inline-flex items-center gap-2 text-sm text-figma-text hover:text-primary-600 transition-colors" style="font-family: 'Poppins', sans-serif;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Voltar à página principal
+        </a>
+      </div>
+
+      <!-- Header -->
+      <div class="mb-6">
+        <h1 class="text-[32px] font-semibold text-figma-dark mb-3 leading-[1.28125]" style="font-family: 'Poppins', sans-serif;">
+          Crie sua conta conosco abaixo
+        </h1>
+        <p class="text-sm text-figma-text" style="font-family: 'Poppins', sans-serif;">
+          Já possui uma conta?
+          <a routerLink="/" class="text-primary-600 font-medium hover:opacity-80">Login</a>
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <!-- Input Fields -->
+        <div class="space-y-4">
+          <!-- Nome Completo -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-figma-label mb-2" style="font-family: 'Poppins', sans-serif;">
+              Nome Completo
+            </label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="w-full px-4 py-3 border border-figma-border rounded-md text-base font-semibold text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+              [class.border-primary-500/50]="signupForm.get('name')?.value && signupForm.get('name')?.valid"
+              [class.shadow-sm]="signupForm.get('name')?.value && signupForm.get('name')?.valid"
+              placeholder="Seu nome completo"
+              style="font-family: 'Poppins', sans-serif;"
+            />
+            @if (signupForm.get('name')?.invalid && signupForm.get('name')?.touched) {
+              <p class="mt-1 text-sm text-red-600">
+                Nome é obrigatório
+              </p>
+            }
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-figma-label mb-2" style="font-family: 'Poppins', sans-serif;">
+              Email
+            </label>
+            <div class="relative">
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="w-full px-4 py-3 border border-figma-border rounded-md text-base text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+                [class.border-red-400]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                placeholder="Digite seu email"
+                style="font-family: 'Poppins', sans-serif;"
+              />
+            </div>
+            @if (signupForm.get('email')?.invalid && signupForm.get('email')?.touched) {
+              <p class="mt-1 text-sm text-red-600">
+                Email inválido
+              </p>
+            }
+          </div>
+
+          <!-- Senha -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-figma-label mb-2" style="font-family: 'Poppins', sans-serif;">
+              Senha
+            </label>
+            <div class="relative">
+              <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                (input)="checkPasswordStrength()"
+                class="w-full px-4 py-3 pr-12 border border-figma-border rounded-md text-base text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+                [class.border-red-400]="password?.invalid && password?.touched"
+                placeholder="Crie sua senha"
+                style="font-family: 'Poppins', sans-serif;"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-figma-placeholder hover:text-figma-text transition-colors"
+              >
+                @if (showPassword()) {
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                  </svg>
+                } @else {
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                }
+              </button>
+            </div>
+
+            <!-- Password Requirements -->
+            @if (password?.value) {
+              <div class="mt-2 space-y-1.5">
+                @for (req of getPasswordRequirements(); track req.text) {
+                  <div class="flex items-center gap-2 text-sm">
+                    @if (req.met) {
+                      <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span class="text-green-600">{{ req.text }}</span>
+                    } @else {
+                      <div class="w-4 h-4 flex-shrink-0"></div>
+                      <span class="text-gray-500">{{ req.text }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            }
+
+            @if (password?.invalid && password?.touched) {
+              <p class="mt-1 text-sm text-red-600">
+                @if (password?.errors?.['required']) {
+                  Senha é obrigatória
+                } @else if (password?.errors?.['minlength']) {
+                  Senha deve ter pelo menos 8 caracteres
+                } @else if (password?.errors?.['passwordStrength']) {
+                  Senha precisa atender todos os requisitos
+                }
+              </p>
+            }
+          </div>
+
+          <!-- Confirmar Senha -->
+          <div>
+            <label for="confirmPassword" class="block text-sm font-medium text-figma-label mb-2" style="font-family: 'Poppins', sans-serif;">
+              Confirmar Senha
+            </label>
+            <div class="relative">
+              <input
+                id="confirmPassword"
+                [type]="showConfirmPassword() ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                class="w-full px-4 py-3 pr-12 border border-figma-border rounded-md text-base text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+                [class.border-red-400]="(confirmPassword?.invalid || signupForm.errors?.['passwordMismatch']) && confirmPassword?.touched"
+                [class.border-green-400]="confirmPassword?.valid && confirmPassword?.value && !signupForm.errors?.['passwordMismatch']"
+                placeholder="Confirme sua senha"
+                style="font-family: 'Poppins', sans-serif;"
+              />
+              <button
+                type="button"
+                (click)="toggleConfirmPasswordVisibility()"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-figma-placeholder hover:text-figma-text transition-colors"
+              >
+                @if (showConfirmPassword()) {
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                  </svg>
+                } @else {
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                }
+              </button>
+            </div>
+            @if (confirmPassword?.valid && confirmPassword?.value && !signupForm.errors?.['passwordMismatch']) {
+              <p class="mt-1 text-sm text-green-600 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Senhas coincidem
+              </p>
+            }
+            @if ((confirmPassword?.invalid || signupForm.errors?.['passwordMismatch']) && confirmPassword?.touched) {
+              <p class="mt-1 text-sm text-red-600">
+                @if (confirmPassword?.errors?.['required']) {
+                  Confirmação de senha é obrigatória
+                } @else if (signupForm.errors?.['passwordMismatch']) {
+                  As senhas não coincidem
+                }
+              </p>
+            }
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-[249px] py-[17px] px-5 bg-primary-600 text-white rounded-md font-medium text-base hover:opacity-90 transition-opacity disabled:cursor-not-allowed"
+          style="font-family: 'Poppins', sans-serif;"
+          [disabled]="signupForm.invalid"
+        >
+          Continuar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

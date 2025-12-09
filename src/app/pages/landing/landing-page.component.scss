@@ -72,6 +72,11 @@
   .feature-marquee {
     animation-duration: 30s;
   }
+  
+  // Remover scale do card destacado no mobile
+  .transform.scale-105 {
+    transform: scale(1);
+  }
 }
 
 /* Garantir que o layout da primeira tela funcione corretamente */
@@ -93,5 +98,43 @@
     flex-shrink: 0;
     flex-grow: 0;
   }
+}
+
+/* Animação dos cards de soluções */
+.solution-card {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.solution-card-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.solution-card:hover .solution-card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Animação dos cards de funcionalidades */
+.feature-card {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.feature-card-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover .feature-card-icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
