@@ -1,9 +1,9 @@
-<div class="min-h-screen bg-white">
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50/30">
   <!-- Navigation Header -->
-  <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16">
-      <a routerLink="/" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-        <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+      <a routerLink="/" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-all duration-300 group">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
           </svg>
@@ -14,7 +14,7 @@
       <div class="ml-auto">
         <button 
           (click)="skipSetup()"
-          class="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          class="text-sm text-gray-500 hover:text-gray-700 transition-all duration-200 px-3 py-1.5 rounded-lg hover:bg-gray-100"
         >
           Pular
         </button>
@@ -23,240 +23,307 @@
   </header>
 
   <!-- Content -->
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Header -->
-    <div class="mb-10">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+    <div class="mb-12 animate-fade-in">
+      <!-- Progress Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-100 rounded-full mb-6">
+        <div class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+        <span class="text-sm font-medium text-primary-700">Etapa 3 de 4</span>
+      </div>
+      
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
         Configure seu sistema
       </h1>
-      <p class="text-base text-gray-600">
+      <p class="text-base md:text-lg text-gray-600 max-w-2xl">
         Defina informações básicas para começar. Você pode alterar tudo depois.
       </p>
+
+      <!-- Progress bar -->
+      <div class="mt-8 w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-700 ease-out" style="width: 75%"></div>
+      </div>
     </div>
 
-    <form (ngSubmit)="onSubmit()" class="space-y-8">
+    <form (ngSubmit)="onSubmit()" class="space-y-10">
       <!-- Dias de Funcionamento -->
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">
-            Dias de funcionamento
-          </label>
-          <p class="text-sm text-gray-500 mb-4">Selecione os dias em que você atende</p>
+      <div class="card-setup">
+        <div class="card-header">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-md">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <label class="block text-base font-bold text-gray-900">
+                Dias de funcionamento
+              </label>
+              <p class="text-sm text-gray-500 mt-0.5">Selecione os dias em que você atende</p>
+            </div>
+          </div>
         </div>
-        <div class="flex flex-wrap gap-2">
-          @for (day of days; track day.value) {
-            <button
-              type="button"
-              (click)="toggleDay(day.value)"
-              class="px-4 py-2.5 rounded-lg border text-sm font-medium transition-all"
-              [class.bg-primary-50]="selectedDays().includes(day.value)"
-              [class.border-primary-500]="selectedDays().includes(day.value)"
-              [class.text-primary-700]="selectedDays().includes(day.value)"
-              [class.border-gray-200]="!selectedDays().includes(day.value)"
-              [class.text-gray-700]="!selectedDays().includes(day.value)"
-              [class.bg-white]="!selectedDays().includes(day.value)"
-            >
-              {{ day.label }}
-            </button>
-          }
+        
+        <div class="card-content">
+          <div class="flex flex-wrap gap-3">
+            @for (day of days; track day.value) {
+              <button
+                type="button"
+                (click)="toggleDay(day.value)"
+                class="day-button"
+                [class.day-button-active]="selectedDays().includes(day.value)"
+              >
+                <span class="day-button-label">{{ day.label }}</span>
+                @if (selectedDays().includes(day.value)) {
+                  <svg class="day-button-check" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                }
+              </button>
+            }
+          </div>
         </div>
       </div>
 
       <!-- Horário -->
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">
-            Horário de funcionamento
-          </label>
-          <p class="text-sm text-gray-500 mb-4">Defina seu horário de atendimento</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-medium text-gray-700 mb-2">Das</label>
-            <div class="flex items-center gap-2">
-              <select
-                [(ngModel)]="startHour"
-                name="startHour"
-                class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 bg-white text-sm"
-              >
-                @for (hour of hours; track hour) {
-                  <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
-                }
-              </select>
-              <span class="text-gray-400">:</span>
-              <select
-                [(ngModel)]="startMinute"
-                name="startMinute"
-                class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 bg-white text-sm"
-              >
-                @for (minute of minutes; track minute) {
-                  <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
-                }
-              </select>
+      <div class="card-setup">
+        <div class="card-header">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <label class="block text-base font-bold text-gray-900">
+                Horário de funcionamento
+              </label>
+              <p class="text-sm text-gray-500 mt-0.5">Defina seu horário de atendimento</p>
             </div>
           </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-700 mb-2">Até</label>
-            <div class="flex items-center gap-2">
-              <select
-                [(ngModel)]="endHour"
-                name="endHour"
-                class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 bg-white text-sm"
-              >
-                @for (hour of hours; track hour) {
-                  <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
-                }
-              </select>
-              <span class="text-gray-400">:</span>
-              <select
-                [(ngModel)]="endMinute"
-                name="endMinute"
-                class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 bg-white text-sm"
-              >
-                @for (minute of minutes; track minute) {
-                  <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
-                }
-              </select>
+        </div>
+        
+        <div class="card-content">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="time-picker-group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">Das</label>
+              <div class="flex items-center gap-2">
+                <select
+                  [(ngModel)]="startHour"
+                  name="startHour"
+                  class="time-select"
+                >
+                  @for (hour of hours; track hour) {
+                    <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+                <span class="text-2xl font-semibold text-gray-400">:</span>
+                <select
+                  [(ngModel)]="startMinute"
+                  name="startMinute"
+                  class="time-select"
+                >
+                  @for (minute of minutes; track minute) {
+                    <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+            <div class="time-picker-group">
+              <label class="block text-sm font-semibold text-gray-700 mb-3">Até</label>
+              <div class="flex items-center gap-2">
+                <select
+                  [(ngModel)]="endHour"
+                  name="endHour"
+                  class="time-select"
+                >
+                  @for (hour of hours; track hour) {
+                    <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+                <span class="text-2xl font-semibold text-gray-400">:</span>
+                <select
+                  [(ngModel)]="endMinute"
+                  name="endMinute"
+                  class="time-select"
+                >
+                  @for (minute of minutes; track minute) {
+                    <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Serviços -->
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">
-            Serviços principais
-          </label>
-          <p class="text-sm text-gray-500 mb-4">Adicione pelo menos um serviço que você oferece</p>
+      <div class="card-setup">
+        <div class="card-header">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-md">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+            <div>
+              <label class="block text-base font-bold text-gray-900">
+                Serviços principais
+              </label>
+              <p class="text-sm text-gray-500 mt-0.5">Adicione pelo menos um serviço que você oferece</p>
+            </div>
+          </div>
         </div>
         
-        @if (selectedServices().length > 0) {
-          <div class="flex flex-wrap gap-2 mb-4">
-            @for (service of selectedServices(); track service) {
-              <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-lg text-sm">
-                {{ service }}
+        <div class="card-content">
+          @if (selectedServices().length > 0) {
+            <div class="flex flex-wrap gap-2 mb-4">
+              @for (service of selectedServices(); track service) {
+                <span class="service-tag">
+                  <span class="service-tag-text">{{ service }}</span>
+                  <button
+                    type="button"
+                    (click)="removeService(service)"
+                    class="service-tag-remove"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </span>
+              }
+            </div>
+          }
+
+          @if (showServiceInput()) {
+            <div class="service-input-container">
+              <input
+                type="text"
+                [(ngModel)]="newServiceInput"
+                name="newService"
+                (keyup.enter)="saveService(); $event.preventDefault()"
+                (keydown.enter)="$event.preventDefault()"
+                placeholder="Ex: Corte de cabelo, Manicure..."
+                class="service-input"
+                autofocus
+              />
+              <div class="flex gap-2">
                 <button
                   type="button"
-                  (click)="removeService(service)"
-                  class="hover:text-gray-900 transition-colors"
+                  (click)="saveService()"
+                  class="btn-primary"
                 >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
+                  Adicionar
                 </button>
-              </span>
-            }
-          </div>
-        }
-
-        @if (showServiceInput()) {
-          <div class="flex gap-2">
-            <input
-              type="text"
-              [(ngModel)]="newServiceInput"
-              name="newService"
-              (keyup.enter)="saveService()"
-              placeholder="Nome do serviço"
-              class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 text-sm"
-            />
-            <button
-              type="button"
-              (click)="saveService()"
-              class="px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors text-sm"
-            >
-              Adicionar
-            </button>
-            <button
-              type="button"
-              (click)="cancelServiceInput()"
-              class="px-4 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm"
-            >
-              Cancelar
-            </button>
-          </div>
-        } @else {
-          <button
-            type="button"
-            (click)="addService()"
-            class="inline-flex items-center gap-2 px-4 py-2.5 border border-dashed border-gray-300 text-gray-600 rounded-lg font-medium hover:border-gray-400 hover:text-gray-700 transition-colors text-sm"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Adicionar serviço
-          </button>
-        }
-      </div>
-
-      <!-- Método de Contato -->
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">
-            Métodos de contato
-          </label>
-          <p class="text-sm text-gray-500 mb-4">Selecione ao menos duas opções</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          @for (method of contactMethods; track method.value) {
-            <button
-              type="button"
-              (click)="toggleContactMethod(method.value)"
-              class="px-4 py-4 rounded-lg border-2 transition-all text-center relative"
-              [class.bg-primary-50]="selectedContactMethods().includes(method.value)"
-              [class.border-primary-500]="selectedContactMethods().includes(method.value)"
-              [class.border-gray-200]="!selectedContactMethods().includes(method.value)"
-              [class.bg-white]="!selectedContactMethods().includes(method.value)"
-              [class.opacity-50]="!selectedContactMethods().includes(method.value) && !canSelectMore()"
-              [class.cursor-not-allowed]="!selectedContactMethods().includes(method.value) && !canSelectMore()"
-            >
-              @if (selectedContactMethods().includes(method.value)) {
-                <div class="absolute top-2 right-2">
-                  <div class="w-5 h-5 bg-primary-600 rounded-full flex items-center justify-center">
-                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                  </div>
-                </div>
-              }
-              <div class="flex items-center justify-center mb-3">
-                @if (method.value === 'whatsapp') {
-                  <svg class="w-12 h-12 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                  </svg>
-                } @else if (method.value === 'email') {
-                  <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                  </svg>
-                } @else if (method.value === 'telefone') {
-                  <svg class="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                  </svg>
-                }
+                <button
+                  type="button"
+                  (click)="cancelServiceInput()"
+                  class="btn-secondary"
+                >
+                  Cancelar
+                </button>
               </div>
-              <div class="font-medium text-gray-900 text-sm">{{ method.label }}</div>
+            </div>
+          } @else {
+            <button
+              type="button"
+              (click)="addService()"
+              class="btn-dashed"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              <span>Adicionar serviço</span>
             </button>
           }
         </div>
-        @if (!canSelectMore()) {
-          <p class="text-xs text-gray-500 mt-2">Você já selecionou 2 métodos. Desmarque um para selecionar outro.</p>
-        }
+      </div>
+
+      <!-- Método de Contato -->
+      <div class="card-setup">
+        <div class="card-header">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+              </svg>
+            </div>
+            <div>
+              <label class="block text-base font-bold text-gray-900">
+                Métodos de contato
+              </label>
+              <p class="text-sm text-gray-500 mt-0.5">Selecione até duas opções</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            @for (method of contactMethods; track method.value) {
+              <button
+                type="button"
+                (click)="toggleContactMethod(method.value)"
+                class="contact-method-card"
+                [class.contact-method-card-active]="selectedContactMethods().includes(method.value)"
+                [class.contact-method-card-disabled]="!selectedContactMethods().includes(method.value) && !canSelectMore()"
+              >
+                @if (selectedContactMethods().includes(method.value)) {
+                  <div class="contact-method-check">
+                    <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                }
+                <div class="contact-method-icon">
+                  @if (method.value === 'whatsapp') {
+                    <svg class="w-14 h-14 text-green-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                  } @else if (method.value === 'email') {
+                    <svg class="w-14 h-14 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                  } @else if (method.value === 'telefone') {
+                    <svg class="w-14 h-14 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
+                  }
+                </div>
+                <div class="font-semibold text-gray-900">{{ method.label }}</div>
+              </button>
+            }
+          </div>
+          @if (selectedContactMethods().length === 2) {
+            <div class="flex items-center gap-2 mt-4 px-4 py-3 bg-green-50 border border-green-200 rounded-lg">
+              <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <p class="text-sm text-green-700 font-medium">Perfeito! Você selecionou 2 métodos de contato.</p>
+            </div>
+          }
+        </div>
       </div>
 
       <!-- Actions -->
-      <div class="flex flex-col sm:flex-row gap-3 justify-end pt-6 border-t border-gray-100">
+      <div class="flex flex-col sm:flex-row gap-3 justify-between items-center pt-8 mt-8 border-t-2 border-gray-100">
         <button
           type="button"
           (click)="skipSetup()"
-          class="px-6 py-2.5 border border-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm"
+          class="text-gray-500 hover:text-gray-700 transition-all duration-200 font-medium text-sm underline underline-offset-2"
         >
           Pular esta etapa
         </button>
         <button
           type="submit"
-          class="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors text-sm"
+          class="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 inline-flex items-center gap-2"
         >
-          Continuar
+          <span>Continuar</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
         </button>
       </div>
     </form>
