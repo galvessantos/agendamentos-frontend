@@ -138,3 +138,124 @@
   transform: scale(1.1) rotate(5deg);
 }
 
+/* Estilos FAQ - Visual moderno e elegante */
+.faq-item {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow, border-color;
+
+  &:hover {
+    border-color: #e0e7ff;
+    box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 
+                0 4px 6px -2px rgba(139, 92, 246, 0.05);
+  }
+
+  &.faq-item-open {
+    border-color: #c7d2fe;
+    box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.15), 
+                0 10px 10px -5px rgba(139, 92, 246, 0.08);
+  }
+  
+  // Remove outline do botão
+  button {
+    outline: none;
+    
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: max-height, opacity;
+  
+  &.faq-answer-open {
+    max-height: 600px;
+    opacity: 1;
+  }
+  
+  // Animação do conteúdo interno quando abre
+  p {
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
+  
+  &.faq-answer-open p {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Efeito de gradiente no fundo da seção FAQ */
+#faq {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
+
+/* Estilos para o card de contato */
+.faq-item button:hover {
+  background-color: rgba(249, 250, 251, 0.5);
+}
+
+.faq-item-open button {
+  background-color: rgba(245, 243, 255, 0.3);
+}
+
+/* Alinhamento do conteúdo da resposta */
+.faq-answer {
+  .ml-9 {
+    margin-left: 2.25rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #faq::before,
+  #faq::after {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .faq-answer .ml-9 {
+    margin-left: 2.25rem;
+  }
+}
+
