@@ -2,6 +2,8 @@ import { Component, signal, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { AccountService } from '../../services/account.service';
+
 
 interface Testimonial {
   text: string;
@@ -20,7 +22,6 @@ export class SignupPageComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   showPassword = signal(false);
   showConfirmPassword = signal(false);
-  passwordStrength = signal<'weak' | 'medium' | 'strong' | null>(null);
   currentTestimonialIndex = signal(0);
   private intervalId: any;
 
@@ -44,7 +45,8 @@ export class SignupPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -96,55 +98,10 @@ export class SignupPageComponent implements OnInit, OnDestroy {
     this.showConfirmPassword.update(value => !value);
   }
 
-
   checkPasswordStrength() {
-    const password = this.password?.value || '';
-    if (!password) {
-      this.passwordStrength.set(null);
-      return;
-    }
-
-    let strength = 0;
-    if (password.length >= 8 && password.length <= 20) strength++;
-    if (/[a-z]/.test(password)) strength++;
-    if (/[A-Z]/.test(password)) strength++;
-    if (/[0-9]/.test(password)) strength++;
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
-
-    if (strength <= 2) {
-      this.passwordStrength.set('weak');
-    } else if (strength <= 4) {
-      this.passwordStrength.set('medium');
-    } else {
-      this.passwordStrength.set('strong');
-    }
-  }
-
-  getPasswordStrengthText(): string {
-    const strength = this.passwordStrength();
-    switch (strength) {
-      case 'weak':
-        return 'Senha fraca';
-      case 'medium':
-        return 'Senha média';
-      case 'strong':
-        return 'Senha forte';
-      default:
-        return '';
-    }
-  }
-
-  getPasswordStrengthColor(): string {
-    const strength = this.passwordStrength();
-    switch (strength) {
-      case 'weak':
-        return 'bg-red-500';
-      case 'medium':
-        return 'bg-yellow-500';
-      case 'strong':
-        return 'bg-green-500';
-      default:
-        return 'bg-gray-300';
+    // Trigger validation update
+    if (this.password) {
+      this.password.updateValueAndValidity();
     }
   }
 
@@ -174,10 +131,18 @@ export class SignupPageComponent implements OnInit, OnDestroy {
     ];
   }
 
+
+
+
   onSubmit() {
     if (this.signupForm.valid) {
       // Salvar dados do formulário (pode usar um service ou localStorage)
       console.log('Form submitted:', this.signupForm.value);
+      
+      // Garantir que a conta está como 'inactive' (ainda não escolheu plano)
+      this.accountService.setAccountStatus('inactive');
+      this.accountService.setSelectedPlan(null);
+      
       // Redirecionar para página de área de atuação
       this.router.navigate(['/cadastro/area-atuacao']);
     } else {
@@ -187,6 +152,12 @@ export class SignupPageComponent implements OnInit, OnDestroy {
 
   goToLogin() {
     // this.router.navigate(['/login']);
+  }
+
+  signUpWithGoogle() {
+    // Implementar integração com Google OAuth
+    console.log('Sign up with Google');
+    // Aqui você pode adicionar a lógica de autenticação com Google
   }
 
   ngOnInit() {

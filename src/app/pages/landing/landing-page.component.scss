@@ -79,25 +79,255 @@
   }
 }
 
-/* Garantir que o layout da primeira tela funcione corretamente */
-.h-screen {
+/* ========================================
+   HERO SECTION - VIEWPORT COMPLETO
+   ======================================== */
+
+/* Remover margens e padding do body/html se necessário */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Hero Section ocupa exatamente 100vh */
+.hero-full-screen {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box !important;
+}
+
+/* Conteúdo principal que cresce e centraliza */
+.hero-full-screen > .flex-1 {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+  overflow: visible;
+  padding: 2rem 0 0 0; /* Padding top para compensar header */
+}
+
+/* Grid interno com conteúdo */
+.hero-full-screen .section-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem; /* Aumentado para criar mais espaço entre GIF e CTA */ 
+  align-items: center;
+  padding: 0 2rem;
+}
+
+/* Coluna esquerda (texto e CTAs) */
+.hero-full-screen .section-container > div:first-child {
   display: flex;
   flex-direction: column;
-  max-height: 100vh;
+  justify-content: center;
+  height: 100%;
+  max-width: 600px;
   
-  .flex-1 {
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: calc(100vh - 130px); // Reserva espaço para header (80px) + carrossel (~50px)
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+  /* Badge não deve se estender */
+  > div:first-child {
+    width: fit-content;
+    max-width: 100%;
+  }
+}
+
+/* Coluna direita (GIF) */
+.hero-full-screen .section-container > div:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Imagem/GIF - maximizar tamanho */
+.hero-full-screen img {
+  width: 100%;
+  height: auto;
+  max-height: 100vh; /* 100% da altura da viewport */
+  object-fit: contain;
+  display: block;
+  transform: scale(1.15); /* Aumenta 15% o tamanho */
+}
+
+/* Carrossel de features - fixado no bottom */
+.hero-full-screen > .flex-shrink-0 {
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+/* Header transparente - não deve contar na altura */
+header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: transparent;
+  backdrop-filter: blur(12px);
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  .hero-full-screen {
+    height: 100dvh !important; /* dvh para mobile */
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
   }
   
-  .flex-shrink-0 {
-    flex-shrink: 0;
-    flex-grow: 0;
+  /* Grid vira coluna única no mobile */
+  .hero-full-screen .section-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+    align-items: flex-start;
   }
+  
+  /* Conteúdo principal tem padding menor */
+  .hero-full-screen > .flex-1 {
+    padding: 1rem 0 0 0;
+  }
+  
+  /* Texto ocupa menos espaço */
+  .hero-full-screen .section-container > div:first-child {
+    max-width: 100%;
+    height: auto;
+    flex: 0 0 auto;
+  }
+  
+  /* GIF menor no mobile */
+  .hero-full-screen .section-container > div:last-child {
+    height: auto;
+    max-height: 40vh;
+  }
+  
+  .hero-full-screen img {
+    max-height: 35vh;
+  }
+  
+  /* Carrossel mais rápido no mobile */
+  .feature-marquee {
+    animation-duration: 30s;
+  }
+  
+  .feature-marquee-group {
+    padding: 0 1.5rem;
+  }
+  
+  // Garantir clicabilidade dos botões
+  button,
+  .btn-primary,
+  .btn-outline,
+  a.btn-primary {
+    position: relative;
+    z-index: 10 !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.2);
+    cursor: pointer;
+    pointer-events: auto !important;
+    user-select: none;
+  }
+  
+  // Garantir que o header não bloqueie cliques
+  header {
+    position: relative;
+    z-index: 50;
+    
+    button {
+      z-index: 51 !important;
+      pointer-events: auto !important;
+    }
+  }
+  
+  // Garantir que elementos com appScrollReveal não bloqueiem cliques
+  [appScrollReveal] {
+    pointer-events: auto !important;
+    
+    button,
+    .btn-primary,
+    .btn-outline {
+      pointer-events: auto !important;
+      z-index: 10 !important;
+    }
+  }
+  
+  // Menu mobile dropdown
+  .absolute.top-full {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Remover scale do card destacado no mobile
+  .transform.scale-105 {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   AJUSTES PARA TELAS GRANDES
+   ======================================== */
+@media (min-width: 1440px) {
+  /* Em telas grandes, permitir GIF ainda maior */
+  .hero-full-screen img {
+    max-height: 85vh;
+  }
+  
+  .hero-full-screen .section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 4rem;
+  }
+}
+
+/* ========================================
+   UTILITÁRIOS ADICIONAIS
+   ======================================== */
+/* Elementos decorativos não devem afetar layout */
+.hero-full-screen .absolute {
+  pointer-events: none;
+}
+
+/* Espaçamento consistente */
+.hero-full-screen .space-y-5 > * + * {
+  margin-top: 1.25rem;
+}
+
+/* Animações suaves */
+.hero-full-screen * {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Animação dos cards de soluções */
