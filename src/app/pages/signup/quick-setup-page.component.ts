@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-quick-setup-page',
@@ -41,7 +42,10 @@ export class QuickSetupPageComponent {
   hours = Array.from({ length: 24 }, (_, i) => i);
   minutes = [0, 15, 30, 45];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private accountService: AccountService
+  ) {}
 
   toggleDay(day: string) {
     const current = this.selectedDays();
@@ -103,10 +107,21 @@ export class QuickSetupPageComponent {
       contactMethods: this.selectedContactMethods()
     };
     console.log('Quick setup data:', data);
+    
+    // Garantir que a conta continua como 'inactive' antes de ir para o dashboard
+    this.accountService.setAccountStatus('inactive');
+    this.accountService.setSelectedPlan(null);
+    
+    // Redireciona para dashboard (conta ainda está inactive, então será bloqueado)
     this.router.navigate(['/dashboard']);
   }
 
   skipSetup() {
+    // Garantir que a conta continua como 'inactive' antes de ir para o dashboard
+    this.accountService.setAccountStatus('inactive');
+    this.accountService.setSelectedPlan(null);
+    
+    // Redireciona para dashboard (conta ainda está inactive, então será bloqueado)
     this.router.navigate(['/dashboard']);
   }
 }

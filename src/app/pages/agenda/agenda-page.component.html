@@ -1,0 +1,302 @@
+<div class="page-shell">
+  <!-- Sidebar Overlay (Mobile) -->
+  @if (sidebarOpen()) {
+    <div class="sidebar-overlay" (click)="closeSidebar()"></div>
+  }
+  
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <span class="brand-name">AgendaAí</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/agenda" class="nav-item active">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span>Agenda</span>
+      </a>
+      <a routerLink="/clientes" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <span>Clientes</span>
+      </a>
+      <a routerLink="/servicos" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <span>Serviços</span>
+      </a>
+      <a routerLink="/funcionarios" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span>Funcionários</span>
+      </a>
+      <a routerLink="/caixa" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>Caixa</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a routerLink="/perfil" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+        <span>Meu Perfil</span>
+      </a>
+      <button class="nav-item logout" (click)="logout()" type="button">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        <span>Sair</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-area">
+    <!-- Activation Banner -->
+    @if (accountService.isAccountInactive()) {
+      <app-activation-banner />
+    }
+
+    <button class="hamburger-btn" (click)="toggleSidebar()" type="button">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Container Principal -->
+    <div class="schedule-container">
+      <!-- Left Side: Schedule -->
+      <div class="schedule-main">
+        <!-- Header -->
+        <div class="schedule-header">
+          <div class="header-title-section">
+            <h1 class="schedule-title">Minha Agenda</h1>
+            <div class="date-range-with-nav">
+              <button class="week-nav-btn-small" (click)="previousWeek()" title="Semana anterior">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <p class="schedule-date-range">{{ getWeekRange() }}</p>
+              <button class="week-nav-btn-small" (click)="nextWeek()" title="Próxima semana">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="today-btn" (click)="goToToday()" title="Ir para hoje">Hoje</button>
+            </div>
+          </div>
+          
+          <div class="header-controls">
+            <button 
+              class="add-new-btn" 
+              (click)="createAppointment()"
+              [disabled]="accountService.isAccountInactive()"
+              [class.blocked]="accountService.isAccountInactive()">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="calendar-grid-wrapper">
+          <div class="calendar-grid">
+            <!-- Time Column Header -->
+            <div class="grid-cell header-cell time-header">Week</div>
+            
+            <!-- Day Headers -->
+            @if (weekDaysDates.length > 0) {
+              @for (day of weekDaysDates; track day.getTime(); let i = $index) {
+              <button
+                class="grid-cell header-cell day-header-cell"
+                [class.today-header]="isToday(day)"
+                [class.selected-header]="isSelectedDay(day)"
+                (click)="selectDayFromHeader(day)"
+                type="button"
+              >
+                <div class="day-header-number">{{ day.getDate() }}</div>
+                <div class="day-header-name">{{ weekDays[i] }}</div>
+              </button>
+              }
+            }
+            
+            <!-- Time Rows -->
+            @if (weekDaysDates.length > 0 && timeSlots.length > 0) {
+              @for (timeSlot of timeSlots; track timeSlot) {
+                <!-- Time Label -->
+                <div class="grid-cell time-cell">
+                  <span class="time-text">{{ timeSlot }}</span>
+                </div>
+                
+                <!-- Day Cells -->
+                @for (day of weekDaysDates; track day.getTime()) {
+                <div 
+                  class="grid-cell day-cell"
+                  [class.current-time]="isToday(day) && timeSlot === '09:00'"
+                >
+                  @for (appointment of getAppointmentsForDayAndTime(day, timeSlot); track appointment.id) {
+                    <div 
+                      class="event-block"
+                      [class]="'event-' + getEventColorClass(appointment.funcionarioId)"
+                      [style.height.px]="getAppointmentHeight(appointment)"
+                    >
+                      <div class="event-title">{{ appointment.service }}</div>
+                      <div class="event-time">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1"/>
+                          <path d="M6 3V6L8 7" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                        {{ appointment.time }} - {{ getEndTime(appointment) }}
+                      </div>
+                    </div>
+                  }
+                </div>
+                }
+              }
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Calendar & Details -->
+      <div class="schedule-sidebar">
+        <!-- Profile Card -->
+        <div class="profile-card">
+          <button class="profile-button" (click)="toggleFuncionarioDropdown()">
+            <div class="profile-avatar">
+              @if (selectedFuncionarioId() === 'all') {
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              } @else {
+                <span class="avatar-initial">{{ getSelectedFuncionarioName().charAt(0) }}</span>
+              }
+            </div>
+            <div class="profile-info">
+              <div class="profile-name">{{ getSelectedFuncionarioName() }}</div>
+              <div class="profile-subtitle">
+                @if (selectedFuncionarioId() === 'all') {
+                  <span>Visualizar: Todos</span>
+                } @else {
+                  <span>Funcionário</span>
+                }
+              </div>
+            </div>
+            <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          @if (showFuncionarioDropdown()) {
+            <div class="profile-dropdown">
+              <button 
+                class="dropdown-option"
+                [class.active]="selectedFuncionarioId() === 'all'"
+                (click)="selectFuncionario('all')"
+              >
+                <div class="option-icon">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </div>
+                <span>Agenda Completa</span>
+              </button>
+              @for (funcionario of funcionarios; track funcionario.id) {
+                <button 
+                  class="dropdown-option"
+                  [class.active]="selectedFuncionarioId() === funcionario.id"
+                  (click)="selectFuncionario(funcionario.id)"
+                >
+                  <div class="option-avatar">{{ funcionario.nome.charAt(0) }}</div>
+                  <span>{{ funcionario.nome }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Mini Calendar -->
+        <div class="mini-calendar-card">
+          <div class="mini-calendar-header">
+            <button class="mini-nav" (click)="previousMonth()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="mini-calendar-title-wrapper">
+              <span class="mini-calendar-title">{{ getMonthName() }}</span>
+              <span class="mini-calendar-year">{{ getYear() }}</span>
+            </div>
+            <button class="mini-nav" (click)="nextMonth()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="mini-calendar-grid">
+            <!-- Weekday headers -->
+            @for (day of ['S', 'M', 'T', 'W', 'T', 'F', 'S']; track day; let i = $index) {
+              <div class="mini-weekday">{{ day }}</div>
+            }
+            
+            <!-- Days -->
+            @if (calendarDays.length > 0) {
+              @for (day of calendarDays; track day.getTime()) {
+              <button
+                class="mini-day-cell"
+                [class.mini-today]="isToday(day)"
+                [class.mini-selected]="isSelected(day)"
+                [class.mini-other-month]="!isCurrentMonth(day)"
+                (click)="selectDate(day)"
+              >
+                {{ day.getDate() }}
+              </button>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Calendar Details -->
+        <div class="calendar-details-card">
+          <div class="details-header">
+            <span>Detalhes do Calendário</span>
+          </div>
+          
+          <div class="details-list">
+            @for (funcionario of funcionarios; track funcionario.id; let i = $index) {
+              <label class="detail-item">
+                <input type="checkbox" checked>
+                <span class="detail-checkbox" [class]="'checkbox-color-' + (i + 1)"></span>
+                <span class="detail-label">{{ funcionario.nome }}</span>
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

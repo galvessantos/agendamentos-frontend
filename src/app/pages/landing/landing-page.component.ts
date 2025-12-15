@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,16 +9,19 @@ import {
 } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Stat } from '../../types/stat.model';
 import { LandingService } from '../../services/landing.service';
 import { StatCardComponent } from '../../components/stat-card/stat-card.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+import { PlanPreferenceService } from '../../services/plan-preference.service';
+import { PlanType } from '../../services/account.service';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, AsyncPipe, NgClass, StatCardComponent, ScrollRevealDirective],
+  imports: [MatToolbarModule, MatButtonModule, AsyncPipe, NgClass, NgIf, StatCardComponent, ScrollRevealDirective],
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,11 +29,15 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 export class LandingPageComponent implements AfterViewInit {
   private readonly landingService = inject(LandingService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
+  private readonly planPreferenceService = inject(PlanPreferenceService);
 
   private darkSectionTop = 0;
   private darkSectionBottom = 0;
   protected isOnDarkBackground = false;
   protected isCarouselClosed = false;
+  protected billingPeriod: 'monthly' | 'yearly' = 'monthly';
+  protected isMobileMenuOpen = false;
 
   stats$: Observable<Stat[]> = this.landingService.getStats();
 
@@ -104,11 +111,72 @@ export class LandingPageComponent implements AfterViewInit {
     }
   }
 
+  setBillingPeriod(period: 'monthly' | 'yearly'): void {
+    this.billingPeriod = period;
+    this.cdr.markForCheck();
+  }
+
+  getPlanPrice(basePrice: number): number {
+    if (this.billingPeriod === 'yearly') {
+      return basePrice * 0.8; // 20% de desconto
+    }
+    return basePrice;
+  }
+
   /**
    * Função para voltar ao topo da página ao clicar no logo "Agendou"
    */
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /**
+   * Navega para o fluxo de cadastro
+   */
+  goToSignup(): void {
+    this.router.navigate(['/cadastro']);
+  }
+
+  /**
+   * Quando o usuário seleciona um plano na landing page,
+   * salva a preferência e redireciona para o cadastro
+   */
+  selectPlanFromLanding(planId: PlanType): void {
+    if (planId) {
+      this.planPreferenceService.setPreferredPlan(planId, 'landing');
+      this.router.navigate(['/cadastro']);
+    }
+  }
+
+  /**
+   * Toggle do menu mobile
+   */
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Scroll suave para uma seção específica
+   */
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Fecha o menu mobile se estiver aberto
+    if (this.isMobileMenuOpen) {
+      this.isMobileMenuOpen = false;
+      this.cdr.markForCheck();
+    }
   }
 
   ngAfterViewInit(): void {

@@ -1,0 +1,338 @@
+<div class="h-screen bg-white flex overflow-hidden">
+  <!-- Form -->
+  <div class="flex-1 h-screen flex items-center justify-center px-4 py-4 overflow-y-auto">
+    <div class="w-full max-w-[630px] py-8">
+      <!-- Back Button -->
+      <div class="mb-12">
+        <a routerLink="/cadastro/area-atuacao" class="inline-flex items-center gap-2 text-sm text-figma-text hover:text-primary-600 transition-colors" style="font-family: 'Poppins', sans-serif;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Voltar
+        </a>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="mb-8">
+        <div class="flex items-center justify-center mb-3">
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <span class="text-xs sm:text-sm font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">Criar conta</span>
+          </div>
+          <div class="flex-1 h-0.5 bg-primary-600 mx-2 max-w-xs">
+            <div class="h-full bg-primary-600"></div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <span class="text-xs sm:text-sm font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">Área de atuação</span>
+          </div>
+          <div class="flex-1 h-0.5 bg-primary-600 mx-2 max-w-xs">
+            <div class="h-full bg-primary-600"></div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center">
+              <span class="text-sm font-semibold text-white">3</span>
+            </div>
+            <span class="text-xs sm:text-sm font-medium text-gray-900" style="font-family: 'Poppins', sans-serif;">Configurações</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-[32px] font-semibold text-figma-dark mb-4 leading-[1.28125]" style="font-family: 'Poppins', sans-serif;">
+          Configure seu estabelecimento
+        </h1>
+        <p class="text-base text-figma-text" style="font-family: 'Poppins', sans-serif;">
+          Preencha as informações básicas do seu negócio para começar a usar o sistema
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="configuracoesForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Nome do Estabelecimento -->
+        <div>
+          <label for="establishmentName" class="block text-sm font-medium text-figma-label mb-2" style="font-family: 'Poppins', sans-serif;">
+            Nome do Estabelecimento
+          </label>
+          <input
+            id="establishmentName"
+            type="text"
+            formControlName="establishmentName"
+            class="w-full px-4 py-3 border border-figma-border rounded-lg text-sm text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+            [class.border-red-400]="configuracoesForm.get('establishmentName')?.invalid && configuracoesForm.get('establishmentName')?.touched"
+            placeholder="Ex: Salão Beleza & Estilo"
+            style="font-family: 'Poppins', sans-serif;"
+          />
+          @if (configuracoesForm.get('establishmentName')?.invalid && configuracoesForm.get('establishmentName')?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              Nome do estabelecimento é obrigatório (mínimo 3 caracteres)
+            </p>
+          }
+        </div>
+
+        <!-- Dias de Funcionamento -->
+        <div>
+          <label class="block text-sm font-medium text-figma-label mb-3" style="font-family: 'Poppins', sans-serif;">
+            Dias de Funcionamento
+          </label>
+          <div class="grid grid-cols-4 sm:grid-cols-7 gap-2">
+            @for (day of days; track day.value) {
+              <button
+                type="button"
+                (click)="toggleDay(day.value)"
+                class="px-3 py-2 rounded-lg border transition-all text-sm"
+                [class.bg-primary-50]="selectedDays().includes(day.value)"
+                [class.border-primary-600]="selectedDays().includes(day.value)"
+                [class.border-figma-border]="!selectedDays().includes(day.value)"
+                [class.text-primary-600]="selectedDays().includes(day.value)"
+                [class.font-medium]="selectedDays().includes(day.value)"
+                [class.text-figma-text]="!selectedDays().includes(day.value)"
+                style="font-family: 'Poppins', sans-serif;"
+              >
+                {{ day.label }}
+              </button>
+            }
+          </div>
+          @if (configuracoesForm.get('workingDays')?.invalid && configuracoesForm.get('workingDays')?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              Selecione pelo menos um dia de funcionamento
+            </p>
+          }
+        </div>
+
+        <!-- Horário de Funcionamento -->
+        <div>
+          <label class="block text-sm font-medium text-figma-label mb-3" style="font-family: 'Poppins', sans-serif;">
+            Horário de Funcionamento
+          </label>
+          <div class="flex items-center gap-4">
+            <div class="flex-1">
+              <label class="block text-xs text-figma-text mb-1.5" style="font-family: 'Poppins', sans-serif;">Abertura</label>
+              <div class="flex gap-2">
+                <select
+                  formControlName="startHour"
+                  class="flex-1 px-3 py-2 border border-figma-border rounded-lg text-sm text-figma-text focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  @for (hour of hours; track hour) {
+                    <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+                <span class="flex items-center text-figma-text">:</span>
+                <select
+                  formControlName="startMinute"
+                  class="flex-1 px-3 py-2 border border-figma-border rounded-lg text-sm text-figma-text focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  @for (minute of minutes; track minute) {
+                    <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+            <div class="flex-1">
+              <label class="block text-xs text-figma-text mb-1.5" style="font-family: 'Poppins', sans-serif;">Fechamento</label>
+              <div class="flex gap-2">
+                <select
+                  formControlName="endHour"
+                  class="flex-1 px-3 py-2 border border-figma-border rounded-lg text-sm text-figma-text focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  @for (hour of hours; track hour) {
+                    <option [value]="hour">{{ hour.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+                <span class="flex items-center text-figma-text">:</span>
+                <select
+                  formControlName="endMinute"
+                  class="flex-1 px-3 py-2 border border-figma-border rounded-lg text-sm text-figma-text focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  @for (minute of minutes; track minute) {
+                    <option [value]="minute">{{ minute.toString().padStart(2, '0') }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Serviços Principais -->
+        <div>
+          <label class="block text-sm font-medium text-figma-label mb-3" style="font-family: 'Poppins', sans-serif;">
+            Serviços Principais
+          </label>
+          <div class="space-y-3">
+            <!-- Lista de serviços selecionados -->
+            @if (selectedServices().length > 0) {
+              <div class="flex flex-wrap gap-2">
+                @for (service of selectedServices(); track service) {
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-50 border border-primary-200 rounded-lg">
+                    <span class="text-sm text-primary-700" style="font-family: 'Poppins', sans-serif;">{{ service }}</span>
+                    <button
+                      type="button"
+                      (click)="removeService(service)"
+                      class="text-primary-600 hover:text-primary-800 transition-colors"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+
+            <!-- Input para adicionar novo serviço -->
+            @if (showServiceInput()) {
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  [(ngModel)]="newServiceInput"
+                  [ngModelOptions]="{standalone: true}"
+                  (keyup.enter)="saveService()"
+                  (keyup.escape)="cancelServiceInput()"
+                  class="flex-1 px-3 py-2 border border-figma-border rounded-lg text-sm text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50"
+                  placeholder="Digite o nome do serviço"
+                  style="font-family: 'Poppins', sans-serif;"
+                />
+                <button
+                  type="button"
+                  (click)="saveService()"
+                  class="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  Adicionar
+                </button>
+                <button
+                  type="button"
+                  (click)="cancelServiceInput()"
+                  class="px-4 py-2 border border-figma-border text-figma-text rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                  style="font-family: 'Poppins', sans-serif;"
+                >
+                  Cancelar
+                </button>
+              </div>
+            } @else {
+              <button
+                type="button"
+                (click)="addService()"
+                class="w-full px-4 py-2 border-2 border-dashed border-figma-border text-figma-text rounded-lg text-sm font-medium hover:border-primary-500 hover:text-primary-600 transition-colors"
+                style="font-family: 'Poppins', sans-serif;"
+              >
+                + Adicionar Serviço
+              </button>
+            }
+          </div>
+          @if (configuracoesForm.get('services')?.invalid && configuracoesForm.get('services')?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              Adicione pelo menos um serviço principal
+            </p>
+          }
+        </div>
+
+        <!-- Métodos de Contato -->
+        <div>
+          <label class="block text-sm font-medium text-figma-label mb-3" style="font-family: 'Poppins', sans-serif;">
+            Métodos de Contato
+          </label>
+          <div class="space-y-3">
+            <!-- Seleção de Métodos -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              @for (method of contactMethods; track method.value) {
+                <button
+                  type="button"
+                  (click)="toggleContactMethod(method.value)"
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg border transition-all"
+                  [class.bg-primary-50]="selectedContactMethods().includes(method.value)"
+                  [class.border-primary-600]="selectedContactMethods().includes(method.value)"
+                  [class.border-figma-border]="!selectedContactMethods().includes(method.value)"
+                >
+                  <div class="w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0"
+                    [class.border-primary-600]="selectedContactMethods().includes(method.value)"
+                    [class.border-figma-border]="!selectedContactMethods().includes(method.value)"
+                  >
+                    @if (selectedContactMethods().includes(method.value)) {
+                      <svg class="w-3 h-3 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    }
+                  </div>
+                  <span class="text-sm"
+                    [class.text-primary-600]="selectedContactMethods().includes(method.value)"
+                    [class.font-medium]="selectedContactMethods().includes(method.value)"
+                    [class.text-figma-text]="!selectedContactMethods().includes(method.value)"
+                    style="font-family: 'Poppins', sans-serif;"
+                  >
+                    {{ method.label }}
+                  </span>
+                </button>
+              }
+            </div>
+
+            <!-- Campos de Input para Métodos Selecionados -->
+            <div class="space-y-3">
+              @for (method of contactMethods; track method.value) {
+                @if (isContactMethodSelected(method.value)) {
+                  <div class="mt-2">
+                    <label [for]="method.value" class="block text-xs font-medium text-figma-label mb-1.5" style="font-family: 'Poppins', sans-serif;">
+                      {{ getContactLabel(method.value) }}
+                    </label>
+                    <input
+                      [id]="method.value"
+                      [type]="method.value === 'email' ? 'email' : 'tel'"
+                      [formControlName]="method.value"
+                      (input)="onContactValueChange(method.value, $any($event.target).value)"
+                      class="w-full px-3 py-2.5 border border-figma-border rounded-lg text-sm text-figma-text placeholder:text-figma-placeholder focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500/50 transition-all"
+                      [class.border-red-400]="configuracoesForm.get(method.value)?.invalid && configuracoesForm.get(method.value)?.touched"
+                      [placeholder]="getContactPlaceholder(method.value)"
+                      style="font-family: 'Poppins', sans-serif;"
+                    />
+                    @if (configuracoesForm.get(method.value)?.invalid && configuracoesForm.get(method.value)?.touched) {
+                      <p class="mt-1 text-xs text-red-600">
+                        @if (configuracoesForm.get(method.value)?.errors?.['required']) {
+                          {{ getContactLabel(method.value) }} é obrigatório
+                        } @else if (configuracoesForm.get(method.value)?.errors?.['email']) {
+                          Email inválido
+                        } @else if (configuracoesForm.get(method.value)?.errors?.['pattern']) {
+                          Formato de número inválido
+                        }
+                      </p>
+                    }
+                  </div>
+                }
+              }
+            </div>
+          </div>
+          @if (configuracoesForm.get('contactMethods')?.invalid && configuracoesForm.get('contactMethods')?.touched) {
+            <p class="mt-1 text-sm text-red-600">
+              Selecione pelo menos um método de contato
+            </p>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button
+            type="submit"
+            class="w-full sm:w-[249px] py-[17px] px-5 bg-primary-600 text-white rounded-md font-medium text-base hover:opacity-90 transition-opacity disabled:cursor-not-allowed"
+            style="font-family: 'Poppins', sans-serif;"
+            [disabled]="configuracoesForm.invalid"
+          >
+            Finalizar Cadastro
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

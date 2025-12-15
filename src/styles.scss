@@ -38,6 +38,60 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// Mobile fixes
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  body {
+    position: relative;
+  }
+}
+
+// Botões bloqueados (conta inativa)
+button[disabled].blocked,
+.btn-primary[disabled].blocked,
+.action-btn[disabled].blocked,
+.btn-recontato[disabled].blocked,
+.btn-horarios[disabled].blocked,
+.table-action[disabled].blocked,
+.add-new-btn[disabled].blocked {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  position: relative;
+  
+  &::after {
+    content: '🔒 Escolha um plano para desbloquear';
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: #0f172a;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 1000;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
 }
 
 @layer components {

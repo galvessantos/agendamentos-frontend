@@ -1,0 +1,242 @@
+<div class="plans-page">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="logo-brand">
+      <div class="logo-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <span class="brand-name">AgendaAí</span>
+    </div>
+    
+    <button class="back-to-dashboard-btn" routerLink="/dashboard" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      <span>Voltar ao Dashboard</span>
+    </button>
+  </div>
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="main-title">Escolha seu Plano</h1>
+    <p class="trial-info">Cadastre-se em menos de 30 segundos. Experimente 7 dias grátis.</p>
+    <p class="subtitle">Faça upgrade a qualquer momento, sem complicações.</p>
+    
+    <!-- Billing Toggle -->
+    <div class="billing-toggle">
+      <button 
+        class="toggle-btn"
+        [class.active]="billingPeriod() === 'monthly'"
+        (click)="setBillingPeriod('monthly')"
+      >
+        MONTHLY
+      </button>
+      <button 
+        class="toggle-btn yearly"
+        [class.active]="billingPeriod() === 'yearly'"
+        (click)="setBillingPeriod('yearly')"
+      >
+        YEARLY
+        <span class="discount-badge">-20%</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Aviso de plano pré-selecionado -->
+
+  <!-- Plans Grid -->
+  <div class="plans-container">
+    <div class="plans-grid">
+      @for (plan of plans; track plan.id) {
+        <div class="plan-card" 
+             [class.popular]="plan.highlighted"
+             [class.selected]="isPlanSelected(plan.id)"
+             [attr.data-plan-id]="plan.id">
+          @if (plan.highlighted) {
+            <div class="popular-badge">MAIS POPULAR</div>
+          }
+          @if (isPlanSelected(plan.id)) {
+            <div class="preselected-badge">✓ Plano Pré-selecionado</div>
+          }
+          
+          <div class="space-y-5">
+            <div class="text-center">
+              @if (billingPeriod() === 'yearly' && plan.price !== getPlanPrice(plan)) {
+                <span class="text-lg font-semibold text-gray-400 line-through">R$ {{ plan.price.toFixed(0) }}</span>
+              }
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-sm font-bold" [class.text-purple-600]="!plan.highlighted" [class.text-white]="plan.highlighted">R$</span>
+                <span class="text-5xl font-extrabold" [class.text-gray-900]="!plan.highlighted" [class.text-white]="plan.highlighted">{{ getPlanPrice(plan).toFixed(0) }}</span>
+                <span class="text-base" [class.text-gray-600]="!plan.highlighted" [class.text-white]="plan.highlighted">/mês</span>
+              </div>
+            </div>
+            
+            <div class="text-center">
+              <h3 class="text-xl font-bold mb-1" [class.text-gray-900]="!plan.highlighted" [class.text-white]="plan.highlighted">{{ plan.name }}</h3>
+              <p class="text-sm" [class.text-gray-600]="!plan.highlighted" [class.text-purple-100]="plan.highlighted">{{ plan.description }}</p>
+            </div>
+            
+            @if (plan.highlighted) {
+              <button 
+                class="w-full bg-white text-purple-600 font-semibold py-3 rounded-xl hover:bg-purple-50 transition-colors shadow-md"
+                (click)="selectPlan(plan.id)"
+              >
+                Começar agora
+              </button>
+            } @else {
+              <button 
+                class="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 transition-colors shadow-md"
+                (click)="selectPlan(plan.id)"
+              >
+                Começar agora
+              </button>
+            }
+            
+            <div class="space-y-4 pt-6 border-t" [class.border-gray-200]="!plan.highlighted" [class.border-purple-400/30]="plan.highlighted">
+              @for (feature of plan.features; track feature) {
+                <div class="flex items-start gap-3">
+                  <svg class="w-5 h-5 flex-shrink-0 mt-0.5" [class.text-primary-500]="!plan.highlighted" [class.text-primary-200]="plan.highlighted" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="text-sm" [class.text-gray-600]="!plan.highlighted" [class.text-primary-100]="plan.highlighted">{{ feature }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="faq-section">
+    <h2 class="faq-title">Perguntas Frequentes</h2>
+    <div class="faq-grid">
+      <div class="faq-column">
+        <div class="faq-item" [class.active]="openFaq() === 0" (click)="toggleFaq(0)">
+          <div class="faq-header">
+            <h4>Posso cancelar a qualquer momento?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 0) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 0) {
+            <p class="faq-answer">Sim! Você pode cancelar seu plano a qualquer momento sem custos adicionais. Não há multas ou taxas de cancelamento.</p>
+          }
+        </div>
+
+        <div class="faq-item" [class.active]="openFaq() === 1" (click)="toggleFaq(1)">
+          <div class="faq-header">
+            <h4>Posso mudar de plano depois?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 1) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 1) {
+            <p class="faq-answer">Claro! Você pode fazer upgrade ou downgrade do seu plano quando quiser. As mudanças são aplicadas imediatamente.</p>
+          }
+        </div>
+
+        <div class="faq-item" [class.active]="openFaq() === 2" (click)="toggleFaq(2)">
+          <div class="faq-header">
+            <h4>Os dados ficam salvos?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 2) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 2) {
+            <p class="faq-answer">Sim, todos os seus dados são salvos com segurança em nuvem com backup diário. Seus dados estão sempre protegidos.</p>
+          }
+        </div>
+      </div>
+
+      <div class="faq-column">
+        <div class="faq-item" [class.active]="openFaq() === 3" (click)="toggleFaq(3)">
+          <div class="faq-header">
+            <h4>Tem período de teste?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 3) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 3) {
+            <p class="faq-answer">Sim! Todos os planos têm 7 dias de teste grátis, sem compromisso. Você pode testar todas as funcionalidades.</p>
+          }
+        </div>
+
+        <div class="faq-item" [class.active]="openFaq() === 4" (click)="toggleFaq(4)">
+          <div class="faq-header">
+            <h4>Como funciona o pagamento?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 4) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 4) {
+            <p class="faq-answer">Aceitamos cartão de crédito, débito e PIX. O pagamento é mensal e recorrente, totalmente seguro.</p>
+          }
+        </div>
+
+        <div class="faq-item" [class.active]="openFaq() === 5" (click)="toggleFaq(5)">
+          <div class="faq-header">
+            <h4>Preciso de cartão para testar?</h4>
+            <button class="faq-toggle">
+              @if (openFaq() === 5) {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10h10"/>
+                </svg>
+              } @else {
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10M5 10h10"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (openFaq() === 5) {
+            <p class="faq-answer">Sim. O cartão é necessário para evitar cadastros indevidos. Você não será cobrado durante o período de teste e pode cancelar a qualquer momento antes do fim.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

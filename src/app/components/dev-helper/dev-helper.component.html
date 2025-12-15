@@ -1,0 +1,84 @@
+@if (showPanel()) {
+  <div class="dev-helper-panel">
+    <div class="dev-header">
+      <div class="dev-title">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M6 8l-4 4 4 4M14 8l4 4-4 4M11 4l-2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Dev Helper</span>
+        <span class="dev-badge">Ctrl+Shift+D</span>
+      </div>
+      <button class="dev-close" (click)="togglePanel()" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="dev-content">
+      <div class="dev-section">
+        <h4>Status da Conta</h4>
+        <div class="status-info">
+          <span class="status-label">Atual:</span>
+          <span class="status-value" [class]="getCurrentStatus()">
+            {{ getCurrentStatus() === 'inactive' ? 'Inativa' : getCurrentStatus() === 'trial' ? 'Trial' : 'Ativa' }}
+          </span>
+        </div>
+        @if (getCurrentPlan()) {
+          <div class="status-info">
+            <span class="status-label">Plano:</span>
+            <span class="status-value">{{ getCurrentPlan() }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="dev-section">
+        <h4>Alternar Status</h4>
+        <div class="status-buttons">
+          <button 
+            class="status-btn inactive"
+            [class.active]="getCurrentStatus() === 'inactive'"
+            (click)="setStatus('inactive')"
+            type="button"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 14A6 6 0 108 2a6 6 0 000 12z" stroke="currentColor" stroke-width="2"/>
+              <path d="M5 8l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Inativa
+          </button>
+          <button 
+            class="status-btn trial"
+            [class.active]="getCurrentStatus() === 'trial'"
+            (click)="setStatus('trial')"
+            type="button"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Trial
+          </button>
+          <button 
+            class="status-btn active-status"
+            [class.active]="getCurrentStatus() === 'active'"
+            (click)="setStatus('active')"
+            type="button"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Ativa
+          </button>
+        </div>
+      </div>
+
+      <div class="dev-info">
+        💡 Use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> para abrir/fechar
+      </div>
+    </div>
+  </div>
+}
+
+
+
+

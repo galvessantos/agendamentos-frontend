@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-white">
+<div class="bg-white">
   <!-- Navigation Header -->
   <header class="sticky top-0 z-50 bg-transparent backdrop-blur-md border-b border-white/10">
     <nav class="section-container flex items-center h-20">
@@ -85,27 +85,92 @@
       </div>
 
       <!-- Mobile Menu Button -->
-      <button class="md:hidden p-2">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button 
+        class="md:hidden p-2 relative z-50"
+        (click)="toggleMobileMenu()"
+        type="button"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-label="Toggle menu"
+      >
+        <svg 
+          *ngIf="!isMobileMenuOpen"
+          class="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg 
+          *ngIf="isMobileMenuOpen"
+          class="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </nav>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div 
+      *ngIf="isMobileMenuOpen"
+      class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-40"
+    >
+      <div class="section-container py-4 space-y-2">
+        <a
+          href="#features"
+          (click)="scrollToSection('features'); $event.preventDefault()"
+          class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+        >
+          Funcionalidades
+        </a>
+        <a
+          href="#solutions"
+          (click)="scrollToSection('solutions'); $event.preventDefault()"
+          class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+        >
+          Soluções
+        </a>
+        <a
+          href="#planos"
+          (click)="scrollToSection('planos'); $event.preventDefault()"
+          class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+        >
+          Planos
+        </a>
+        <div class="border-t border-gray-200 pt-2 mt-2">
+          <button
+            class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-primary-600 border border-primary-100 hover:bg-primary-50 transition-colors mb-2"
+            type="button"
+          >
+            Login
+          </button>
+          <a 
+            href="/cadastro" 
+            class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-white bg-primary-500 hover:bg-primary-600 transition-colors"
+          >
+            Começar agora
+          </a>
+        </div>
+      </div>
+    </div>
 </header>
 
   <!-- Hero Section -->
-  <div class="relative overflow-hidden bg-white h-screen flex flex-col">
+  <section class="hero-full-screen relative overflow-visible bg-white flex flex-col">
     <!-- Decorative elements -->
-    <div class="absolute top-20 right-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10"></div>
+    <div class="absolute top-20 right-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10 pointer-events-none" style="z-index: -1;"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-30 -z-10 pointer-events-none" style="z-index: -1;"></div>
 
-    <div class="flex-1 flex flex-col justify-center items-center pt-4 pb-0 min-h-0 overflow-hidden">
-      <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-4">
+    <div class="flex-1 flex flex-col justify-center items-center pt-4 pb-8 min-h-0 relative" style="z-index: 1;">
+      <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-24 items-center py-4">
         <!-- Left Content -->
         <div class="space-y-5" appScrollReveal>
-        <div class="inline-flex items-center px-4 py-2 bg-primary-50 rounded-full">
-          <span class="text-sm font-medium text-primary-600">Solução completa de agendamento</span>
-    </div>
+        <div class="inline-block">
+          <span class="inline-flex items-center px-3 py-1 bg-primary-50 rounded-full text-sm font-medium text-primary-600">Solução completa de agendamento</span>
+        </div>
 
         <div class="space-y-4">
           <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
@@ -120,8 +185,20 @@
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 pt-2">
-          <button class="btn-primary">Integre ao seu negócio</button>
-          <button class="btn-outline">Por que usar?</button>
+          <button 
+            class="btn-primary relative z-10" 
+            (click)="goToSignup()"
+            type="button"
+          >
+            Integre ao seu negócio
+          </button>
+          <button 
+            class="btn-outline relative z-10" 
+            (click)="scrollToSection('solutions')"
+            type="button"
+          >
+            Por que usar?
+          </button>
         </div>
 
         <!-- Social Proof -->
@@ -153,69 +230,14 @@
         </div>
       </div>
 
-      <!-- Right Visual -->
+      <!-- Right Visual - Apresentação -->
       <div class="relative hidden md:block" appScrollReveal>
-          <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl blur-2xl opacity-20"></div>
-          <div class="relative bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-            <!-- Tab Navigation -->
-            <div class="flex border-b border-gray-200">
-              <button class="flex-1 px-6 py-4 text-sm font-medium text-primary-600 bg-primary-50 border-b-2 border-primary-500">
-                Agendamentos
-              </button>
-              <button class="flex-1 px-6 py-4 text-sm font-medium text-gray-600 hover:text-gray-900 border-b-2 border-transparent">
-                Clientes
-      </button>
-            </div>
-
-            <!-- Dashboard Content -->
-            <div class="p-5 space-y-5">
-              <!-- Stats Row -->
-              <div class="grid grid-cols-3 gap-4">
-                <div class="text-center">
-                  <div class="text-2xl font-bold text-gray-900">652</div>
-                  <div class="text-xs text-gray-600 mt-1">Este mês</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-600">+24%</div>
-                  <div class="text-xs text-gray-600 mt-1">vs. mês anterior</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-2xl font-bold text-gray-900">95%</div>
-                  <div class="text-xs text-gray-600 mt-1">Taxa de conclusão</div>
-                </div>
-              </div>
-
-              <!-- Chart -->
-              <div class="h-20 bg-gradient-to-t from-primary-100 to-primary-50 rounded-lg flex items-end gap-1 p-3">
-                <div class="flex-1 bg-primary-400 rounded-t h-10"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-14"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-8"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-16"></div>
-                <div class="flex-1 bg-primary-400 rounded-t h-12"></div>
-              </div>
-
-              <!-- Recent Booking -->
-              <div class="border-t border-gray-200 pt-4 space-y-2">
-                <p class="text-xs font-medium text-gray-500 uppercase">Próximos agendamentos</p>
-                <div class="space-y-2">
-                  <div class="flex items-center gap-2.5 text-sm">
-                    <div class="w-7 h-7 rounded-full bg-primary-100"></div>
-                    <div>
-                      <p class="font-medium text-gray-900 text-sm">Corte + Barba</p>
-                      <p class="text-xs text-gray-600">João Silva - 14:00</p>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-2.5 text-sm">
-                    <div class="w-7 h-7 rounded-full bg-primary-100"></div>
-                    <div>
-                      <p class="font-medium text-gray-900 text-sm">Manicure</p>
-                      <p class="text-xs text-gray-600">Maria Santos - 15:30</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="relative flex items-center justify-center">
+          <img 
+            src="/img/Apresentação1.gif" 
+            alt="Apresentação AgendaAí" 
+            class="drop-shadow-4xl"
+          />
         </div>
       </div>
     </div>
@@ -436,6 +458,7 @@
         </div>
       </div>
     </div>
+  </section>
 
   <!-- Features Section -->
   <section id="features" class="min-h-screen py-20 md:py-32 bg-gray-50 flex items-center" appScrollReveal>
@@ -767,7 +790,7 @@
           Confirmação, reagendamento e aviso antecipado, tudo funcionando no piloto automático.
         </p>
         <div class="flex items-center gap-4 md:gap-6">
-          <button class="btn-primary">Comece agora</button>
+          <button class="btn-primary" (click)="goToSignup()" type="button">Comece agora</button>
 
           <!-- Seta decorativa apontando para o botão (estática) -->
           <svg
@@ -974,40 +997,65 @@
   </section>
 
   <!-- Pricing Section -->
-  <section id="planos" class="py-20 md:py-32 bg-white" appScrollReveal>
+  <section id="planos" class="py-20 md:py-32 bg-[#f5f3ff]" appScrollReveal>
     <div class="section-container">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Planos que se adaptam ao seu
-          <br />
-          <span class="relative inline-block">
-            negócio.
-            <span
-              class="absolute bottom-2 left-0 w-full h-3 bg-primary-200 -z-10 highlight-underline"
-            ></span>
-          </span>
+          Escolha seu Plano
         </h2>
-        <p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
-          Escolha o plano ideal para o tamanho do seu negócio. Sem taxas escondidas, cancele quando quiser.
+        <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">
+          Cadastre-se em menos de 30 segundos. Experimente 7 dias grátis.
         </p>
+        <p class="text-base text-gray-600 mt-1 max-w-2xl mx-auto mb-8">
+          Faça upgrade a qualquer momento, sem complicações.
+        </p>
+        
+        <!-- Billing Toggle -->
+        <div class="inline-flex gap-2 bg-white/50 p-1.5 rounded-full shadow-sm">
+          <button 
+            class="px-7 py-2.5 rounded-full text-sm font-semibold transition-all"
+            [class]="billingPeriod === 'monthly' ? 'bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-md' : 'text-gray-600 hover:text-purple-600'"
+            (click)="setBillingPeriod('monthly')"
+          >
+            MONTHLY
+          </button>
+          <button 
+            class="px-7 py-2.5 rounded-full text-sm font-semibold transition-all relative"
+            [class]="billingPeriod === 'yearly' ? 'bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-md' : 'text-gray-600 hover:text-purple-600'"
+            (click)="setBillingPeriod('yearly')"
+          >
+            YEARLY
+            <span class="absolute -right-2 -top-1 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-xl">-20%</span>
+          </button>
+        </div>
       </div>
 
       <!-- Pricing Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <!-- Plano Básico -->
-        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-primary-300 transition-all hover:shadow-lg">
-          <div class="space-y-6">
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Básico</h3>
-              <p class="text-sm text-gray-600">Perfeito para começar</p>
-            </div>
-            <div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-bold text-gray-900">R$ 49</span>
-                <span class="text-gray-600">/mês</span>
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-primary-300 transition-all hover:shadow-lg transform hover:-translate-y-2">
+          <div class="space-y-5">
+            <div class="text-center">
+              @if (billingPeriod === 'yearly') {
+                <span class="text-lg font-semibold text-gray-400 line-through">R$ 29,90</span>
+              }
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-sm font-bold text-purple-600">R$</span>
+                <span class="text-5xl font-extrabold text-gray-900">{{ getPlanPrice(29.90).toFixed(0) }}</span>
+                <span class="text-base text-gray-600">/mês</span>
               </div>
             </div>
-            <button class="w-full btn-outline">Começar agora</button>
+            <div class="text-center">
+              <h3 class="text-xl font-bold text-gray-900 mb-1">Básico</h3>
+              <p class="text-sm text-gray-600">Perfeito para iniciar sua agenda digital</p>
+            </div>
+            <button 
+              class="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 transition-colors shadow-md"
+              (click)="selectPlanFromLanding('basico')"
+              type="button"
+            >
+              Começar agora
+            </button>
             <div class="space-y-4 pt-6 border-t border-gray-200">
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1017,7 +1065,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Calendário online 24/7</span>
+                <span class="text-sm text-gray-600">Até 50 agendamentos/mês</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1027,7 +1075,17 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Até 2 profissionais</span>
+                <span class="text-sm text-gray-600">1 funcionário</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span class="text-sm text-gray-600">Agenda semanal</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1047,31 +1105,39 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Gestão de clientes</span>
+                <span class="text-sm text-gray-600">Suporte por email</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Plano Profissional (Destaque) -->
-        <div class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 text-white relative transform scale-105 shadow-2xl">
-          <div class="absolute top-4 right-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white">
+        <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6 text-white relative transform scale-105 shadow-2xl">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="inline-flex items-center px-4 py-1 rounded-full text-xs font-bold bg-purple-900 text-white uppercase tracking-wide shadow-lg">
               Mais Popular
             </span>
           </div>
-          <div class="space-y-6">
-            <div>
-              <h3 class="text-xl font-bold mb-2">Profissional</h3>
-              <p class="text-sm text-primary-100">Para negócios em crescimento</p>
-            </div>
-            <div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-bold">R$ 70</span>
-                <span class="text-primary-100">/mês</span>
+          <div class="space-y-5 mt-2">
+            <div class="text-center">
+              @if (billingPeriod === 'yearly') {
+                <span class="text-lg font-semibold text-purple-200 line-through">R$ 49,90</span>
+              }
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-sm font-bold text-white">R$</span>
+                <span class="text-5xl font-extrabold text-white">{{ getPlanPrice(49.90).toFixed(0) }}</span>
+                <span class="text-base text-purple-100">/mês</span>
               </div>
             </div>
-            <button class="w-full bg-white text-primary-600 font-semibold py-3 rounded-lg hover:bg-primary-50 transition-colors">
+            <div class="text-center">
+              <h3 class="text-xl font-bold mb-1">Profissional</h3>
+              <p class="text-sm text-purple-100">Ideal para negócios em crescimento</p>
+            </div>
+            <button 
+              class="w-full bg-white text-purple-600 font-semibold py-3 rounded-xl hover:bg-purple-50 transition-colors shadow-md"
+              (click)="selectPlanFromLanding('profissional')"
+              type="button"
+            >
               Começar agora
             </button>
             <div class="space-y-4 pt-6 border-t border-primary-400/30">
@@ -1083,7 +1149,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">Calendário online 24/7</span>
+                <span class="text-sm text-primary-100">Agendamentos ilimitados</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1093,7 +1159,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">Até 10 profissionais</span>
+                <span class="text-sm text-primary-100">Até 5 funcionários</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1103,7 +1169,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">SMS + Email</span>
+                <span class="text-sm text-primary-100">Agenda completa</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1113,7 +1179,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">Gestão de clientes</span>
+                <span class="text-sm text-primary-100">Notificações SMS e email</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1123,7 +1189,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">Pagamentos online</span>
+                <span class="text-sm text-primary-100">Controle financeiro</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1133,7 +1199,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-primary-100">Relatórios avançados</span>
+                <span class="text-sm text-primary-100">Relatórios detalhados</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-200 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1149,20 +1215,30 @@
           </div>
         </div>
 
-        <!-- Plano Enterprise -->
-        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-primary-300 transition-all hover:shadow-lg">
-          <div class="space-y-6">
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Enterprise</h3>
-              <p class="text-sm text-gray-600">Para grandes empresas</p>
-            </div>
-            <div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-bold text-gray-900">R$ 150</span>
-                <span class="text-gray-600">/mês</span>
+        <!-- Plano Premium -->
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-primary-300 transition-all hover:shadow-lg transform hover:-translate-y-2">
+          <div class="space-y-5">
+            <div class="text-center">
+              @if (billingPeriod === 'yearly') {
+                <span class="text-lg font-semibold text-gray-400 line-through">R$ 89,90</span>
+              }
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-sm font-bold text-purple-600">R$</span>
+                <span class="text-5xl font-extrabold text-gray-900">{{ getPlanPrice(89.90).toFixed(0) }}</span>
+                <span class="text-base text-gray-600">/mês</span>
               </div>
             </div>
-            <button class="w-full btn-outline">Começar agora</button>
+            <div class="text-center">
+              <h3 class="text-xl font-bold text-gray-900 mb-1">Premium</h3>
+              <p class="text-sm text-gray-600">Para estabelecimentos completos</p>
+            </div>
+            <button 
+              class="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 transition-colors shadow-md"
+              (click)="selectPlanFromLanding('premium')"
+              type="button"
+            >
+              Começar agora
+            </button>
             <div class="space-y-4 pt-6 border-t border-gray-200">
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1172,7 +1248,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Calendário online 24/7</span>
+                <span class="text-sm text-gray-600">Tudo do Profissional</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1182,7 +1258,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Profissionais ilimitados</span>
+                <span class="text-sm text-gray-600">Funcionários ilimitados</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1192,7 +1268,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">SMS + Email</span>
+                <span class="text-sm text-gray-600">Múltiplas unidades</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1202,7 +1278,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Gestão de clientes</span>
+                <span class="text-sm text-gray-600">API personalizada</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1212,7 +1288,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Pagamentos online</span>
+                <span class="text-sm text-gray-600">App personalizado</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1222,7 +1298,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Relatórios avançados</span>
+                <span class="text-sm text-gray-600">Treinamento dedicado</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1232,7 +1308,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Suporte prioritário</span>
+                <span class="text-sm text-gray-600">Suporte 24/7</span>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1242,17 +1318,7 @@
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="text-sm text-gray-600">Multi-localidades</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <span class="text-sm text-gray-600">Backup automático</span>
+                <span class="text-sm text-gray-600">Gerente de conta</span>
               </div>
             </div>
           </div>
@@ -1262,7 +1328,7 @@
       <!-- FAQ ou Nota adicional -->
       <div class="mt-12 text-center">
         <p class="text-sm text-gray-600">
-          Todos os planos incluem teste gratuito de 14 dias. Sem necessidade de cartão de crédito.
+          Todos os planos incluem teste gratuito de 7 dias.
         </p>
     </div>
   </div>
@@ -1277,6 +1343,8 @@
       </p>
       <button
         class="px-8 py-4 bg-white text-primary-700 font-bold rounded-lg hover:bg-primary-50 transition-colors inline-flex items-center gap-2"
+        (click)="goToSignup()"
+        type="button"
       >
         Começar agora
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,118 +1,413 @@
-<div class="min-h-screen bg-gray-50">
-  <!-- Navigation Header -->
-  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a routerLink="/" class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-        </div>
-        <span class="text-xl font-bold text-gray-900">AgendaAí</span>
-      </a>
-
-      <div class="flex items-center gap-4">
-        <button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">Configurações</button>
+<div class="page-shell">
+  <!-- Sidebar Overlay (Mobile) -->
+  @if (sidebarOpen()) {
+    <div class="sidebar-overlay" (click)="closeSidebar()"></div>
+  }
+  
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="sidebarOpen()">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
       </div>
+      <span class="brand-name">AgendaAí</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/agenda" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span>Agenda</span>
+      </a>
+      <a routerLink="/clientes" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <span>Clientes</span>
+      </a>
+      <a routerLink="/servicos" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <span>Serviços</span>
+      </a>
+      <a routerLink="/funcionarios" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span>Funcionários</span>
+      </a>
+      <a routerLink="/caixa" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>Caixa</span>
+      </a>
     </nav>
-  </header>
+
+    <div class="sidebar-footer">
+      <a routerLink="/perfil" class="nav-item">
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+        <span>Meu Perfil</span>
+      </a>
+      <button 
+        class="nav-item logout" 
+        (click)="logout($event)" 
+        type="button"
+        id="logout-button"
+      >
+        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        <span>Sair</span>
+      </button>
+    </div>
+  </aside>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Tour Rápido -->
-    @if (showTour()) {
-      <div class="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-6 relative">
-        <button
-          (click)="closeTour()"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+  <div class="main-area">
+    <!-- Activation Banner -->
+    @if (accountService.isAccountInactive()) {
+      <app-activation-banner />
+    }
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger-btn" (click)="toggleSidebar()" type="button">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0">
-            <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
+        <div class="header-content">
+          <div class="greeting">
+            <h1>Olá, bem-vindo ao AgendaAí!</h1>
           </div>
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Bem-vindo ao AgendaAí! 🎉</h3>
-            <p class="text-gray-700 mb-4">
-              Este é seu painel de controle. Aqui você gerencia todos os seus agendamentos, clientes e configurações.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-white rounded-full text-sm text-gray-700">📅 Agenda</span>
-              <span class="px-3 py-1 bg-white rounded-full text-sm text-gray-700">👥 Clientes</span>
-              <span class="px-3 py-1 bg-white rounded-full text-sm text-gray-700">⚙️ Configurações</span>
+          <div class="period-filter">
+            <div class="date-filter-container">
+              <!-- Botões de período rápido -->
+              <div class="quick-filters">
+                @for (periodo of periodos; track periodo.value) {
+                  <button 
+                    class="quick-filter-btn"
+                    [class.active]="periodoSelecionado() === periodo.value"
+                    (click)="selectPeriodo(periodo.value)"
+                    type="button"
+                  >
+                    {{ periodo.label }}
+                  </button>
+                }
+              </div>
+              
+              <!-- Filtro personalizado -->
+              <button 
+                class="custom-date-btn"
+                (click)="toggleCustomDatePicker()"
+                type="button"
+              >
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <rect x="2" y="3" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 7H16M6 1V5M12 1V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Personalizado
+              </button>
+              
+              <!-- Dropdown de data personalizada -->
+              @if (showCustomDatePicker()) {
+                <div class="custom-date-picker">
+                  <div class="date-picker-header">
+                    <span>Selecionar Período</span>
+                    <button class="close-picker" (click)="toggleCustomDatePicker()" type="button">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div class="date-inputs">
+                    <div class="date-input-group">
+                      <label>De</label>
+                      <input 
+                        type="date" 
+                        class="date-input"
+                        [(ngModel)]="customStartDate"
+                      />
+                    </div>
+                    
+                    <div class="date-separator">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    
+                    <div class="date-input-group">
+                      <label>Até</label>
+                      <input 
+                        type="date" 
+                        class="date-input"
+                        [(ngModel)]="customEndDate"
+                      />
+                    </div>
+                  </div>
+                  
+                  <button class="apply-custom-date" (click)="applyCustomDate()" type="button">
+                    Aplicar
+                  </button>
+                </div>
+              }
             </div>
           </div>
         </div>
       </div>
-    }
+    </header>
 
-    <!-- Alerta de Plano -->
-    @if (showPlanAlert()) {
-      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6 relative">
-        <button
-          (click)="closePlanAlert()"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="summary-card gradient">
+        <div class="summary-content">
+          <p class="summary-label">Agendamentos {{ getPeriodoLabel() }}</p>
+          <p class="summary-value">{{ agendamentosMes }}</p>
+        </div>
+        <div class="summary-chart line-chart-wrapper" [attr.data-animation-key]="chartAnimationKey()">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="sparkline-gradient-white" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:rgba(255,255,255,0.4);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path 
+              class="line-area line-area-white"
+              [attr.d]="getSmoothAreaPath(getSparklineData())"
+              fill="url(#sparkline-gradient-white)"
+            />
+            <path 
+              class="line-stroke line-stroke-white"
+              [attr.d]="getSmoothLinePath(getSparklineData())"
+              fill="none"
+              stroke="rgba(255,255,255,0.9)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
-        </button>
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0">
-            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Para aceitar reservas, escolha seu plano</h3>
-            <p class="text-gray-700 mb-4">
-              Ative sua agenda agora e comece a receber agendamentos dos seus clientes.
-            </p>
-            <button
-              (click)="goToPlans()"
-              class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
-            >
-              Ativar Agenda
-            </button>
-          </div>
         </div>
       </div>
-    }
 
-    <!-- Agenda Vazia -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-      <div class="text-center py-12">
-        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+      <div class="summary-card">
+        <div class="summary-content">
+          <p class="summary-label">Novos clientes</p>
+          <p class="summary-value">{{ novosClientes }}</p>
+        </div>
+        <div class="summary-icon clients">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-2">Sua agenda está vazia</h3>
-        <p class="text-gray-600 mb-6 max-w-md mx-auto">
-          Quando você ativar seu plano e começar a receber agendamentos, eles aparecerão aqui.
-        </p>
-        @if (showPlanAlert()) {
-          <button
-            (click)="goToPlans()"
-            class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
-          >
-            Ativar Agenda Agora
-          </button>
-        }
+        <div class="summary-chart line-chart-wrapper" [attr.data-animation-key]="chartAnimationKey()">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="growth-gradient-purple" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:0.3" />
+                <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.05" />
+              </linearGradient>
+            </defs>
+            <path 
+              class="line-area line-area-purple"
+              [attr.d]="getSmoothAreaPath(getGrowthData())"
+              fill="url(#growth-gradient-purple)"
+            />
+            <path 
+              class="line-stroke line-stroke-purple"
+              [attr.d]="getSmoothLinePath(getGrowthData())"
+              fill="none"
+              stroke="#7c3aed"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-content">
+          <p class="summary-label">Receita {{ getPeriodoLabel() }}</p>
+          <p class="summary-value">R$ {{ receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</p>
+        </div>
+        <div class="summary-chart line-chart-wrapper" [attr.data-animation-key]="chartAnimationKey()">
+          <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="revenue-gradient-green" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />
+                <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.05" />
+              </linearGradient>
+            </defs>
+            <path 
+              class="line-area line-area-green"
+              [attr.d]="getSmoothAreaPath(getRevenueData())"
+              fill="url(#revenue-gradient-green)"
+            />
+            <path 
+              class="line-stroke line-stroke-green"
+              [attr.d]="getSmoothLinePath(getRevenueData())"
+              fill="none"
+              stroke="#10b981"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Business Profile Card -->
+      <div class="summary-card profile-card-compact">
+        <div class="profile-avatar-compact">
+          <div class="avatar-circle-compact">
+            <span>BB</span>
+          </div>
+        </div>
+        <div class="profile-info-compact">
+          <h3 class="profile-name-compact">Barbearia BarberShop</h3>
+          <p class="profile-location-compact">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Rua das Flores, 123 - Centro
+          </p>
+        </div>
+        <div class="profile-stats-compact">
+          <div class="stat-item-compact">
+            <span class="stat-value-compact">{{ profileStats.agendamentos }}</span>
+            <span class="stat-label-compact">Agendamentos</span>
+          </div>
+          <div class="stat-item-compact">
+            <span class="stat-value-compact">{{ profileStats.clientes }}</span>
+            <span class="stat-label-compact">Clientes</span>
+          </div>
+          <div class="stat-item-compact">
+            <span class="stat-value-compact">{{ profileStats.servicos }}</span>
+            <span class="stat-label-compact">Serviços</span>
+          </div>
+        </div>
       </div>
     </div>
-  </main>
+
+    <!-- Main Widgets -->
+    <div class="widgets-grid">
+      <!-- Total Agendamentos Chart -->
+      <div class="widget large agendamentos-chart-new">
+        <div class="chart-header-new">
+          <div>
+            <h2 class="chart-title-new">Total de Agendamentos {{ getPeriodoLabel() }}</h2>
+            <p class="chart-subtitle-new">Finalizados vs Pendentes</p>
+          </div>
+          <div class="chart-summary-new">
+            <div class="summary-item-new total">
+              <span class="summary-number-new">{{ totalAgendamentos }}</span>
+              <span class="summary-text-new">Total</span>
+            </div>
+            <div class="summary-item-new finalizados">
+              <span class="summary-number-new">{{ getFinalizados() }}</span>
+              <span class="summary-text-new">Finalizados</span>
+            </div>
+            <div class="summary-item-new pendentes">
+              <span class="summary-number-new">{{ getPendentes() }}</span>
+              <span class="summary-text-new">Pendentes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-area-new" [attr.data-animation-key]="chartAnimationKey()">
+          @for (data of getChartData(); track data.label; let i = $index) {
+            <div class="chart-bar-new">
+              <div class="bar-container-new">
+                @if (data.total > 0) {
+                  <div class="bar-wrapper-new" 
+                       [style.height]="'calc(' + data.height + '% - 0px)'"
+                       [style.animation-delay.ms]="i * 60">
+                    <div class="bar-stack-new">
+                      <div class="bar-segment-new finalizados-new" 
+                           [style.flex]="data.finalizados"
+                           [class.highlighted-new]="data.isCurrent">
+                      </div>
+                      @if (data.pendentes > 0) {
+                        <div class="bar-segment-new pendentes-new" 
+                             [style.flex]="data.pendentes"
+                             [class.highlighted-new]="data.isCurrent">
+                        </div>
+                      }
+                    </div>
+                    <div class="bar-hover-new">
+                      <div class="hover-total-new">{{ data.total }}</div>
+                      <div class="hover-breakdown-new">
+                        <span>✓ {{ data.finalizados }}</span>
+                        @if (data.pendentes > 0) {
+                          <span>⏱ {{ data.pendentes }}</span>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="bar-empty-placeholder"></div>
+                }
+              </div>
+              <div class="bar-label-new" [class.current-new]="data.isCurrent">{{ data.label }}</div>
+            </div>
+          }
+        </div>
+
+        <div class="chart-legend-new">
+          <div class="legend-item-new">
+            <span class="legend-dot-new finalizados-new"></span>
+            Finalizados
+          </div>
+          <div class="legend-item-new">
+            <span class="legend-dot-new pendentes-new"></span>
+            Pendentes
+          </div>
+        </div>
+      </div>
+
+      <!-- Agendamentos Recentes -->
+      <div class="widget">
+        <div class="widget-header">
+          <h2 class="widget-title">Seus agendamentos</h2>
+        </div>
+        <div class="transactions-list">
+          <div class="transaction-item" *ngFor="let transaction of transactions">
+            <div class="transaction-icon" [class]="transaction.iconClass">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="transaction.iconPath"></path>
+              </svg>
+            </div>
+            <div class="transaction-details">
+              <p class="transaction-name">{{ transaction.name }}</p>
+              <p class="transaction-date">{{ transaction.date }}</p>
+            </div>
+          </div>
+        </div>
+        <a routerLink="/agenda" class="view-all-link">
+          Ver todos
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
 </div>
-
-
-
